@@ -2,6 +2,8 @@ import { useState } from "react";
 import './signUp.css'
 import logo from '../../images/logo/pngwing.com (6).png';
 import { FiUserCheck } from "react-icons/fi";
+import { LuUserCog } from "react-icons/lu";
+
 
 
 
@@ -18,16 +20,18 @@ const SignUp = () => {
                 <div className={`container ${isSignUp ? 'active' : ''}`}>
                     <div className="form-container sign-up">
                         <form>
-                            <h1>Create Account</h1>
+                        <span className=""> <LuUserCog className="text-6xl font-bold icons" /></span>
+                        <h1 className="text-2xl font-bold uppercase">Student Sign-Up</h1>
                             <input type="text" placeholder="Name" />
                             <input type="email" placeholder="Email" />
+                            <input type="password" placeholder="Password" />
                             <button>Sign Up</button>
                         </form>
                     </div>
                     <div className="form-container sign-in">
                         <form>
-                            <span> <FiUserCheck />
-                                <h1 className="text-3xl font-bold uppercase">Login</h1></span>
+                            <span className=""> <FiUserCheck className="text-6xl font-bold icons" /></span>
+                            <h1 className="text-2xl font-bold uppercase">Student Login</h1>
                             <input type="email" placeholder="Email" />
                             <input type="password" placeholder="Password" />
                             <button>LOG-IN</button>
