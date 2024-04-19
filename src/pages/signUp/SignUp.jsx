@@ -34,10 +34,14 @@ const SignUp = () => {
                 <div className="toggle">
                     <div className={`toggle-panel toggle-left ${!isSignUp ? 'active' : ''}`}>
                     <img className="w-52" src={logo} alt="" />
-                        <button className="" onClick={toggleForm}>Sign In</button>
+                    <div className="relative overflow-hidden leading-6 uppercase cursor-pointer group">
+                        <button className="group-hover:-translate-y-[120%] inline-block  transition duration-500 ease-out">LOG-IN</button>
+                        <button className=" absolute left-0 rotate-12 inline-block translate-y-[120%] transition duration-500 ease-out group-hover:-translate-y-0 group-hover:rotate-0" onClick={toggleForm}>Log-In</button>
+                    </div>
                     </div>
                     <div className={`toggle-panel toggle-right ${isSignUp ? 'active' : ''}`}>
                         <img className="w-52" src={logo} alt="" />
+                        <button>Sign-up</button>
                         <button className="" onClick={toggleForm}>Sign-up</button>
                     </div>
                 </div>
