@@ -19,11 +19,21 @@ const Home = () => {
         const timer2 = setTimeout(() => {
             const element = document.querySelector('.tx-2');
             if (element) {
-                element.classList.add('animate__bounceIn');
+                element.classList.add('animate__jello');
             }
-        }, 4100);
+        }, 4500);
 
         return () => clearTimeout(timer2);
+    }, []);
+    useEffect(() => {
+        const timer3 = setTimeout(() => {
+            const element = document.querySelector('.tx-3');
+            if (element) {
+                element.classList.add('animate__bounceInRight');
+            }
+        }, 4300);
+
+        return () => clearTimeout(timer3);
     }, []);
       
     return (
@@ -41,7 +51,7 @@ const Home = () => {
                 <div className="uppercase three-tx">
                     <p className="ml-20 font-extrabold text-8xl tx-1 animate__animated ">Show</p>
                     <p className="mt-10 font-extrabold tx-2 ml-44 text-8xl animate__animated">your</p>
-                    <span className="flex text-center animate__animated animate__bounceInRight"><p className="mt-12 font-extrabold text-8xl ml-80">IQ</p><img className="w-20 h-20 mt-16" src={qmark} alt="" /></span>
+                    <span className="flex text-center tx-3 animate__animated "><p className="mt-12 font-extrabold text-8xl ml-80">IQ</p><img className="w-20 h-20 mt-16" src={qmark} alt="" /></span>
                 </div>
             <div className="border home-img-container animate__animated animate__fadeInRight">
                 <img className=" home-img move-up-down" src={man} alt="" />
