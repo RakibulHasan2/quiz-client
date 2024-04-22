@@ -89,3 +89,31 @@
       transform: scale(0.8);
     }
   }
+
+  .three-tx{
+    padding-left:20%;
+    padding-top:8%;
+    color: #6e741a;
+  }
+  .home-img{
+    margin-left:18%;
+    margin-top:15%;
+    filter: drop-shadow(0px 0px 40px #b9c50e);
+  }
+  .home-img-container{
+    width:40%;
+  }
+
+  @keyframes moveUpDown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-15px); /* Adjust the distance of movement as needed */
+    }
+  }
+  
+  .move-up-down {
+    animation: moveUpDown 3s ease-in-out infinite; /* Adjust the duration of the animation as needed */
+  }
+  
