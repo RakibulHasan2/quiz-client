@@ -1,9 +1,31 @@
 import Footer from "../footer/Footer";
 import './home.css'
 import man from '../../images/cartoon image/360_F_458630388_h2oAUzpYozE7lmpswiot0DPfy7ptYufJ-removebg-preview.png'
-import paper from '../../images/gif/wired-lineal-56-document.gif'
+import qmark from '../../images/gif/system-regular-57-help-question.gif'
 import 'animate.css';
+import { useEffect } from "react";
 const Home = () => {
+    useEffect(() => {
+        const timer1 = setTimeout(() => {
+            const element = document.querySelector('.tx-1');
+            if (element) {
+                element.classList.add('animate__bounceInLeft');
+            }
+        }, 4000);
+
+        return () => clearTimeout(timer1);
+    }, []);
+    useEffect(() => {
+        const timer2 = setTimeout(() => {
+            const element = document.querySelector('.tx-2');
+            if (element) {
+                element.classList.add('animate__bounceIn');
+            }
+        }, 4100);
+
+        return () => clearTimeout(timer2);
+    }, []);
+      
     return (
 <div>
 <div className="h-screen">
@@ -15,12 +37,14 @@ const Home = () => {
                 <div className="circle medium shade4"></div>
                 <div className="circle small shade5"></div>
             </div>
-          <div className="flex justify-between border">
-                <div>
-                    <img className="w-12" src={paper} alt="" />
+          <div className="flex justify-between h-screen">
+                <div className="uppercase three-tx">
+                    <p className="ml-20 font-extrabold text-8xl tx-1 animate__animated ">Show</p>
+                    <p className="mt-10 font-extrabold tx-2 ml-44 text-8xl animate__animated">your</p>
+                    <span className="flex text-center animate__animated animate__bounceInRight"><p className="mt-12 font-extrabold text-8xl ml-80">IQ</p><img className="w-20 h-20 mt-16" src={qmark} alt="" /></span>
                 </div>
-            <div className="flex justify-end border">
-                <img className="animate__animated animate__bounceInRight" src={man} alt="" />
+            <div className="border home-img-container animate__animated animate__fadeInRight">
+                <img className=" home-img move-up-down" src={man} alt="" />
             </div>
             </div>  
           
