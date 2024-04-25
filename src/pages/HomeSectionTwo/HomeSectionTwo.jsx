@@ -24,17 +24,21 @@ const HomeSectionTwo = () => {
         }}>
                 
             
-              <div className="mt-20">
+              <div className="mt-52">
                 
                   {animationOn &&
                     <div className="flex justify-center animate__animated animate__fadeInDown">
-                        <h1 className="text-5xl uppercase">be the top on the list</h1>
+                        <div className="content">
+                            <h2 className="uppercase ">be|the|top|on|the|list</h2>
+                            <h2 className="uppercase ">be|the|top|on|the|list</h2>
+                        </div>
+                        
                     </div>
              }
-                     <div className="mt-20 wave-container"data-aos="fade-up">
+                     <div className="mt-32 wave-container"data-aos="fade-up">
                        <div className="flex h-72">
-                            <div className=" img-1">
-                                <img className="w-20" src={chapm} alt="" />
+                            <div className=" img-1" data-aos="flip-right">
+                                <img className="w-20"  src={chapm} alt="" />
                             </div>
                             <div className=" img-2">
                                 <img className="w-12" src={medel1} alt="" />
