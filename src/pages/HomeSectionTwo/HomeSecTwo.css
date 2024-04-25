@@ -1,6 +1,79 @@
-.wave-container{
+.wave-container {
+    height: 100%;
+    width: 100%;
     background-size: cover;
     background-position: center;
     background-image: url('../../images/svg/wave.svg');
 
+}
+
+.img-1 {
+    width: 20%;
+}
+
+.img-1 img {
+    margin-left: 70%;
+    position: relative;
+    bottom: 20%;
+}
+
+.img-2 {
+    width: 10%;
+}
+
+.img-2 img {
+    margin-left:50%;
+    margin-top:60%;
+}
+.img-3 img{
+    margin-top: 40%;
+}
+.img-4{
+    width:10%;
+}
+.img-4 img{
+    margin-left:40%;
+    margin-top:90%;
+}
+.img-5{
+    width:10%;
+}
+.img-5 img{
+    margin-left: 45%;
+    margin-top:20%;
+}
+.img-6{
+    width:12%;
+}
+.img-6 img{
+    margin-left: 30%;
+    margin-top:95%;
+}
+.img-7{
+    width: 8%;
+}
+.img-7 img{
+    margin-left: 45%;
+    margin-top:15%;
+}
+.img-8{
+    width:5%;
+}
+.img-8 img{
+    margin-left: 15%;
+    margin-top: 160%;
+}
+.img-9{
+    width:13%;
+}
+.img-9 img{
+    margin-left:30%;
+    margin-top:40%;
+}
+.img-10{
+    width:5%;
+}
+.img-10 img{
+    margin-left: 20%;
+    margin-top: 60%;
 }
