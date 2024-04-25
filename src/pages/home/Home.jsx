@@ -1,44 +1,44 @@
-import Footer from "../footer/Footer";
 import './home.css'
 import man from '../../images/cartoon image/360_F_458630388_h2oAUzpYozE7lmpswiot0DPfy7ptYufJ-removebg-preview.png'
 import qmark from '../../images/gif/system-regular-57-help-question.gif'
 import 'animate.css';
-import { useEffect } from "react";
+// import { useEffect } from "react";
+import HomeSectionTwo from '../HomeSectionTwo/HomeSectionTwo';
 const Home = () => {
-    useEffect(() => {
-        const timer1 = setTimeout(() => {
-            const element = document.querySelector('.tx-1');
-            if (element) {
-                element.classList.add('animate__bounceInLeft');
-            }
-        }, 4000);
+    // useEffect(() => {
+    //     const timer1 = setTimeout(() => {
+    //         const element = document.querySelector('.tx-1');
+    //         if (element) {
+    //             element.classList.add('animate__bounceInLeft');
+    //         }
+    //     }, 4000);
 
-        return () => clearTimeout(timer1);
-    }, []);
-    useEffect(() => {
-        const timer2 = setTimeout(() => {
-            const element = document.querySelector('.tx-2');
-            if (element) {
-                element.classList.add('animate__jello');
-            }
-        }, 4500);
+    //     return () => clearTimeout(timer1);
+    // }, []);
+    // useEffect(() => {
+    //     const timer2 = setTimeout(() => {
+    //         const element = document.querySelector('.tx-2');
+    //         if (element) {
+    //             element.classList.add('animate__jello');
+    //         }
+    //     }, 4500);
 
-        return () => clearTimeout(timer2);
-    }, []);
-    useEffect(() => {
-        const timer3 = setTimeout(() => {
-            const element = document.querySelector('.tx-3');
-            if (element) {
-                element.classList.add('animate__bounceInRight');
-            }
-        }, 4300);
+    //     return () => clearTimeout(timer2);
+    // }, []);
+    // useEffect(() => {
+    //     const timer3 = setTimeout(() => {
+    //         const element = document.querySelector('.tx-3');
+    //         if (element) {
+    //             element.classList.add('animate__bounceInRight');
+    //         }
+    //     }, 4300);
 
-        return () => clearTimeout(timer3);
-    }, []);
+    //     return () => clearTimeout(timer3);
+    // }, []);
       
     return (
 <div>
-<div className="h-screen">
+<div className=" h-screens">
             {/* RippleBackground applied as background */}
             <div className="ripple-background">
                 <div className="circle xxlarge shade1"></div>
@@ -59,7 +59,7 @@ const Home = () => {
             </div>  
           
         </div>
-        <Footer></Footer>
+        <HomeSectionTwo/>
 </div>
    
     );
