@@ -49,11 +49,11 @@ const Home = () => {
                 <div className="circle medium shade4"></div>
                 <div className="circle small shade5"></div>
             </div>
-          <div className="flex justify-between h-screen">
+          <div className="flex justify-between h-screen ">
                 <div className="uppercase three-tx">
-                    <p className="ml-20 font-extrabold text-8xl tx-1 animate__animated ">Show</p>
-                    <p className="mt-10 font-extrabold tx-2 ml-44 text-8xl animate__animated">yourd</p>
-                    <span className="flex text-center tx-3 animate__animated "><p className="mt-12 font-extrabold text-8xl ml-80">IQ</p><img className="w-20 h-20 mt-16" src={qmark} alt="" /></span>
+                    <p className="ml-20 font-extrabold text-8xl tx-1 animate__animated animate__bounceInLeft">Show</p>
+                    <p className="mt-10 font-extrabold tx-2 ml-44 text-8xl animate__animated animate__jello">yourd</p>
+                    <span className="flex text-center tx-3 animate__animated animate__bounceInRight"><p className="mt-12 font-extrabold text-8xl ml-80">IQ</p><img className="w-20 h-20 mt-16" src={qmark} alt="" /></span>
                 </div>
             <div className=" home-img-container animate__animated animate__fadeInRight">
                 <img className=" home-img move-up-down" src={man} alt="" />
