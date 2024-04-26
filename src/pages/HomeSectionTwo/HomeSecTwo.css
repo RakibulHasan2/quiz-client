@@ -4,7 +4,6 @@
     background-size: cover;
     background-position: center;
     background-image: url('../../images/svg/wave.svg');
-
 }
 
 .img-1 {
@@ -84,17 +83,18 @@
     position: absolute;
     color: rgb(238, 238, 226);
     transform: translate(-50%, -50%);
-    font-size: 7em;
+    font-size: 9em;
+    font-weight: 700;
 }
 .content h2:nth-child(1)
 {
     color: transparent;
-    -webkit-text-stroke: 2px #b9c511;
+    -webkit-text-stroke: 2px #000000;
 }
 .content h2:nth-child(2)
 {
-    color: #b9c511;
-    animation: animate 3s ease-in-out infinite;
+    color: #b8c22a;
+    animation: animate 4s ease-in-out infinite;
 }
 @keyframes animate 
 {
@@ -106,4 +106,11 @@
         clip-path: polygon(0 57%, 17% 50%, 36% 53%, 56% 57%, 73% 52%, 86% 41%, 100% 30%, 100% 100%, 0 100%);
 
     }
+}
+.section2-end{
+    height: 300px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient( #c0c40c,transparent);
 }

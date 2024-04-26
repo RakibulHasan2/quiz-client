@@ -2,8 +2,10 @@ import './home.css'
 import man from '../../images/cartoon image/360_F_458630388_h2oAUzpYozE7lmpswiot0DPfy7ptYufJ-removebg-preview.png'
 import qmark from '../../images/gif/system-regular-57-help-question.gif'
 import 'animate.css';
+import Footer from '../footer/Footer'
 // import { useEffect } from "react";
 import HomeSectionTwo from '../HomeSectionTwo/HomeSectionTwo';
+import HomeSectionThree from '../homeSectionThree/HomeSectionThree';
 const Home = () => {
     // useEffect(() => {
     //     const timer1 = setTimeout(() => {
@@ -59,7 +61,14 @@ const Home = () => {
             </div>  
           
         </div>
-        <HomeSectionTwo/>
+        <div>
+            <HomeSectionTwo/> 
+        </div>
+          
+        <div>
+              <HomeSectionThree/>
+        </div>
+     <Footer/>
 </div>
    
     );

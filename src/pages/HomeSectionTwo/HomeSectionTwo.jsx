@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ScrollTrigger from "react-scroll-trigger";
 import './HomeSecTwo.css'
-import Footer from './../footer/Footer';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import timer from '../../images/be the top gif/timer.gif'
@@ -27,17 +26,17 @@ const HomeSectionTwo = () => {
               <div className="mt-52">
                 
                   {animationOn &&
-                    <div className="flex justify-center animate__animated animate__fadeInDown">
-                        <div className="content">
-                            <h2 className="uppercase ">be|the|top|on|the|list</h2>
-                            <h2 className="uppercase ">be|the|top|on|the|list</h2>
+                    <div className="flex justify-center">
+                        <div className="content animate__animated animate__fadeInUpBig">
+                            <h2 className="uppercase ">be|the|top</h2>
+                            <h2 className="uppercase ">be|the|top</h2>
                         </div>
                         
                     </div>
              }
-                     <div className="mt-32 wave-container"data-aos="fade-up">
+               {animationOn && <div className="mt-32 wave-container animate__animated animate__fadeInDown">
                        <div className="flex h-72">
-                            <div className=" img-1" data-aos="flip-right">
+                            <div className=" img-1">
                                 <img className="w-20"  src={chapm} alt="" />
                             </div>
                             <div className=" img-2">
@@ -70,8 +69,10 @@ const HomeSectionTwo = () => {
                                 <img className="w-10" src={play} alt="" />
                             </div>
                        </div>
-                    </div> 
-                    <Footer/>
+                    </div> }
+                    <div className="section2-end">
+
+                    </div>
                 </div>  
              
         </ScrollTrigger>
