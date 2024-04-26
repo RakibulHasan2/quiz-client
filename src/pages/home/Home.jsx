@@ -6,6 +6,7 @@ import Footer from '../footer/Footer'
 // import { useEffect } from "react";
 import HomeSectionTwo from '../HomeSectionTwo/HomeSectionTwo';
 import HomeSectionThree from '../homeSectionThree/HomeSectionThree';
+import HomeSectionFour from '../homeSectionFour/HomeSectionFour';
 const Home = () => {
     // useEffect(() => {
     //     const timer1 = setTimeout(() => {
@@ -67,6 +68,9 @@ const Home = () => {
           
         <div>
               <HomeSectionThree/>
+        </div>
+        <div>
+            <HomeSectionFour/>
         </div>
      <Footer/>
 </div>
