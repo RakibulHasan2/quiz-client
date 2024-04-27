@@ -1,24 +1,27 @@
 import { useState } from "react";
 import './signUp.css'
 import logo from '../../images/logo/pngwing.com (6).png';
-import { FiUserCheck } from "react-icons/fi";
 import { LuUserCog } from "react-icons/lu";
 import { FaArrowLeft, FaEye } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import 'animate.css';
 import { useForm } from "react-hook-form";
-
+import { useToasts } from 'react-toast-notifications';
+import { useNavigate } from 'react-router-dom';
+import StudentLogin from "../StudentLogin/StudentLogin";
+import TeacherLogin from "../TeacherLogin/TeacherLogin";
 
 
 const SignUp = () => {
+    const navigate = useNavigate();
+    const { addToast } = useToasts();
     const [isSignUp, setIsSignUp] = useState(false);
-
     const toggleForm = () => {
         setIsSignUp(prevState => !prevState);
     };
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const handleCreateUser = async (data) => {
+
         const userData = {
             userName: data.userName,
             userAddress: data.userAddress,
@@ -27,7 +30,7 @@ const SignUp = () => {
             pass: data.pass
 
         }
-        console.log(userData)
+        // console.log(userData)
         try {
             const response = await fetch('https://localhost:7274/api/User', {
                 method: 'POST',
@@ -41,9 +44,12 @@ const SignUp = () => {
             console.log(responseData)
             if (responseData) {
                 console.log('User created successfully');
-                // Store user data in sessionStorage
+                addToast('User created successfully', { appearance: 'success' })
                 sessionStorage.setItem('userData', JSON.stringify(userData));
+                navigate('/')
+                reset();
             } else {
+                addToast('User not created', { appearance: 'error' })
                 console.log('Failed to create user');
             }
         } catch (error) {
@@ -51,8 +57,6 @@ const SignUp = () => {
         }
 
     }
-
-    
     const [types, setTypes] = useState(true)
 
     const seePass = (type) => {
@@ -68,8 +72,13 @@ const SignUp = () => {
                 return types ? "password" : "text";
         }
     };
+    const [isStudentLoginVisible, setIsStudentLoginVisible] = useState(true);
+
+    const toggleLoginType = () => {
+        setIsStudentLoginVisible(!isStudentLoginVisible);
+    };
     return (
-        <div className="flex justify-center mt-20">
+        <div className="flex items-center justify-center h-screen">
             <div>
                 <div className={`container ${isSignUp ? 'active' : ''}`}>
                     <div className="form-container sign-up">
@@ -87,13 +96,13 @@ const SignUp = () => {
 
                                 <input type="text" {...register("userAddress", {
                                     required: "*"
-                                })} placeholder="First Address" />
+                                })} placeholder="Address" />
                                 {errors.userAddress && <small className='relative ml-2 text-red-500 right-2'>{errors.userAddress?.message}</small>}
 
                             </div>
                             <div className="flex gap-1">
                                 <div className="flex flex-col gap-1">
-                                    <select className="w-32" {...register("role", {
+                                    <select className="w-36" {...register("role", {
                                         required: "*"
                                     })}>
                                         <option value="teacher">select Role</option>
@@ -125,19 +134,33 @@ const SignUp = () => {
 
                     <div className="form-container sign-in">
                         <div className="flex "><NavLink to='/'><h2 className={`flex items-center w-20 gap-2 p-1 mt-3 ml-5 rounded-md sign-up-home ${!isSignUp ? 'block' : 'hidden'}`}><FaArrowLeft />HOME</h2></NavLink></div>
-                        <form>
-                            <span className=""> <FiUserCheck className="text-6xl font-bold icons" /></span>
-                            <h1 className="text-2xl font-bold uppercase ">Student Login</h1>
-                            <input type="email" placeholder="Email" />
-                            <input type="password" placeholder="Password" />
-                            <button>LOG-IN</button>
-                        </form>
-                    </div>
 
+                        <div className="mt-12">
+                            {isStudentLoginVisible ? (
+                                <div>
+                                    <TeacherLogin />
+                                    <div className="flex justify-center mt-1">
+                                        <small>Are you a Student? <span className="font-bold cursor-pointer text-lime-600" onClick={toggleLoginType}>Login Student Account</span></small>
+                                    </div>
+                                </div>
+
+                            ) : (
+
+                                <div>
+                                    <StudentLogin />
+                                    <div className="flex justify-center mt-1">
+                                        <small>Are you a Teacher? <span className="font-bold cursor-pointer text-lime-600" onClick={toggleLoginType}>Login Teacher Account</span></small>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                    </div>
                     <div className="toggle-container">
                         <div className="toggle">
                             <div className={`toggle-panel toggle-left ${!isSignUp ? 'active' : ''}`}>
                                 <img className="w-52" src={logo} alt="" />
+                                <small className="text-black">Alreay have account?</small>
                                 <div className="relative overflow-hidden leading-6 uppercase cursor-pointer group">
                                     <button className="group-hover:-translate-y-[120%] inline-block  transition duration-500 ease-out">LOG-IN</button>
                                     <button className=" absolute left-0 rotate-12 inline-block translate-y-[120%] transition duration-500 ease-out group-hover:-translate-y-0 group-hover:rotate-0" onClick={toggleForm}>Log-In</button>
@@ -145,6 +168,7 @@ const SignUp = () => {
                             </div>
                             <div className={`toggle-panel toggle-right ${isSignUp ? 'active' : ''}`}>
                                 <img className="w-52" src={logo} alt="" />
+                                <small className="text-black">New in here? Create Account</small>
                                 <div className="relative overflow-hidden leading-6 uppercase cursor-pointer group">
                                     <button className="group-hover:-translate-y-[120%] inline-block  transition duration-500 ease-out">sign-up</button>
                                     <button className=" absolute left-0 rotate-12 inline-block translate-y-[120%] transition duration-500 ease-out group-hover:-translate-y-0 group-hover:rotate-0" onClick={toggleForm}>sign-up</button>
@@ -155,7 +179,6 @@ const SignUp = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 
