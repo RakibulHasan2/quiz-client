@@ -3,6 +3,7 @@ import App from '../App';
 import Home from '../pages/home/Home';
 import Quizes from '../pages/Quizes/Quizes';
 import SignUp from '../pages/signUp/SignUp';
+import Question from '../pages/Question/Question';
 const routes = createBrowserRouter([
     {
         path: '/',
@@ -15,6 +16,10 @@ const routes = createBrowserRouter([
             {
                 path: '/quiz',
                 element: <Quizes/>,
+            },
+            {
+                path: '/question',
+                element: <Question/>,
             },
         ],
     },
