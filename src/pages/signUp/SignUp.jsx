@@ -7,18 +7,20 @@ import { FaArrowLeft, FaEye } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import 'animate.css';
 import { useForm } from "react-hook-form";
-
+import { useToasts } from 'react-toast-notifications';
+import { useNavigate } from 'react-router-dom';
 
 
 const SignUp = () => {
+    const navigate = useNavigate();
+    const { addToast } = useToasts();
     const [isSignUp, setIsSignUp] = useState(false);
-
     const toggleForm = () => {
         setIsSignUp(prevState => !prevState);
     };
-
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const handleCreateUser = async (data) => {
+        
         const userData = {
             userName: data.userName,
             userAddress: data.userAddress,
@@ -41,15 +43,22 @@ const SignUp = () => {
             console.log(responseData)
             if (responseData) {
                 console.log('User created successfully');
-                // Store user data in sessionStorage
+                addToast('User created successfully',{ appearance: 'success' })
                 sessionStorage.setItem('userData', JSON.stringify(userData));
+                navigate('/')
+                reset();
             } else {
+                addToast('User not created',{ appearance: 'error' })
                 console.log('Failed to create user');
             }
         } catch (error) {
             console.error('Error creating', error);
         }
 
+    }
+
+    const handleLoginUser=() => {
+        
     }
 
     
@@ -93,7 +102,7 @@ const SignUp = () => {
                             </div>
                             <div className="flex gap-1">
                                 <div className="flex flex-col gap-1">
-                                    <select className="w-32" {...register("role", {
+                                    <select className="w-36" {...register("role", {
                                         required: "*"
                                     })}>
                                         <option value="teacher">select Role</option>
@@ -125,12 +134,24 @@ const SignUp = () => {
 
                     <div className="form-container sign-in">
                         <div className="flex "><NavLink to='/'><h2 className={`flex items-center w-20 gap-2 p-1 mt-3 ml-5 rounded-md sign-up-home ${!isSignUp ? 'block' : 'hidden'}`}><FaArrowLeft />HOME</h2></NavLink></div>
-                        <form>
+                        <form onSubmit={handleSubmit(handleLoginUser)}>
                             <span className=""> <FiUserCheck className="text-6xl font-bold icons" /></span>
                             <h1 className="text-2xl font-bold uppercase ">Student Login</h1>
-                            <input type="email" placeholder="Email" />
-                            <input type="password" placeholder="Password" />
-                            <button>LOG-IN</button>
+                            <input type="text" {...register("phoneNumber", {
+                                    required: "Required"
+                                })} placeholder="Phone Number" />
+                                {errors.phoneNumber && <small className='relative ml-2 text-red-500 right-2 '>{errors.phoneNumber?.message}</small>}
+
+                                <input type={passwordFieldType("current")}  {...register("pass", {
+                                required: "Required",
+                                minLength: { value: 6, message: "Password must be 6 characters long" },
+                                pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: 'Password must have uppercase, number and special characters' }
+                            })} placeholder="🗝 Password..." />
+                            <div className="flex justify-end">
+                                <a className='relative bottom-14 left-32' title="See password" onClick={() => seePass("current")}><FaEye className="text-2xl" /></a>
+                            </div>
+                            {errors.pass && <small className='relative ml-2 text-red-500 bottom-14'>{errors.pass.message}</small>}
+                            <button type="submit">LOG-IN</button>
                         </form>
                     </div>
 
@@ -155,7 +176,6 @@ const SignUp = () => {
                 </div>
             </div>
         </div>
-
     );
 };
 
