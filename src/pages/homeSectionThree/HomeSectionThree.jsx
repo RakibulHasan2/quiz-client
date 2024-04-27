@@ -18,11 +18,10 @@ const HomeSectionThree = () => {
             {animationOn && <div className="mt-20">
                 <div className="flex justify-center mb-20">
                  
-                <div className='reward-content animate__animated animate__backInDown'>
-                         
+                <div className='reward-content animate__animated animate__backInDown'>   
                       <h1 className="uppercase">earn,rewards</h1>
                         <h1 className="uppercase">earn,rewards</h1>
-                 
+    
                     </div>
                 
                 </div>

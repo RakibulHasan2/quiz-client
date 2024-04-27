@@ -3,9 +3,10 @@ import './signUp.css'
 import logo from '../../images/logo/pngwing.com (6).png';
 import { FiUserCheck } from "react-icons/fi";
 import { LuUserCog } from "react-icons/lu";
-import { FaArrowLeft } from "react-icons/fa6";
+import { FaArrowLeft, FaEye } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import 'animate.css';
+import { useForm } from "react-hook-form";
 
 
 
@@ -16,24 +17,114 @@ const SignUp = () => {
         setIsSignUp(prevState => !prevState);
     };
 
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const handleCreateUser = async (data) => {
+        const userData = {
+            userName: data.userName,
+            userAddress: data.userAddress,
+            phoneNumber: data.phoneNumber,
+            role: data.role,
+            pass: data.pass
+
+        }
+        console.log(userData)
+        try {
+            const response = await fetch('https://localhost:7274/api/User', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+
+            const responseData = await response.json();
+            console.log(responseData)
+            if (responseData) {
+                console.log('User created successfully');
+                // Store user data in sessionStorage
+                sessionStorage.setItem('userData', JSON.stringify(userData));
+            } else {
+                console.log('Failed to create user');
+            }
+        } catch (error) {
+            console.error('Error creating', error);
+        }
+
+    }
+
+    
+    const [types, setTypes] = useState(true)
+
+    const seePass = (type) => {
+        switch (type) {
+            case "current":
+                setTypes(!types);
+                break;
+        }
+    };
+    const passwordFieldType = (type) => {
+        switch (type) {
+            case "current":
+                return types ? "password" : "text";
+        }
+    };
     return (
         <div className="flex justify-center mt-20">
             <div>
                 <div className={`container ${isSignUp ? 'active' : ''}`}>
                     <div className="form-container sign-up">
-                        <div className="flex justify-end"><NavLink to='/'><h2  className="flex items-center w-20 gap-2 p-1 mt-3 mr-5 rounded-md sign-up-home"><FaArrowLeft />HOME</h2></NavLink></div>
-                        <form >
-                        <span className=""> <LuUserCog className="text-6xl font-bold icons" /></span>
-                        <h1 className="text-2xl font-bold uppercase ">Student Sign-Up</h1>
-                            <input type="text" placeholder="Name" />
-                            <input type="email" placeholder="Email" />
-                            <input type="password" placeholder="Password" />
-                            <button>Sign Up</button>
+                        <div className="flex justify-end"><NavLink to='/'><h2 className="flex items-center w-20 gap-2 p-1 mt-3 mr-5 rounded-md sign-up-home"><FaArrowLeft />HOME</h2></NavLink></div>
+                        <form onSubmit={handleSubmit(handleCreateUser)}>
+                            <span className=""> <LuUserCog className="text-5xl font-bold icons" /></span>
+                            <h1 className="text-lg font-bold uppercase ">user Sign-Up</h1>
+                            <div className="flex gap-1">
+
+                                <input type="text" {...register("userName", {
+                                    required: "*"
+                                })} placeholder="Enter Name" />
+                                {errors.userName && <small className='relative ml-2 text-red-500 right-2'>{errors.userName?.message}</small>}
+
+
+                                <input type="text" {...register("userAddress", {
+                                    required: "*"
+                                })} placeholder="First Address" />
+                                {errors.userAddress && <small className='relative ml-2 text-red-500 right-2'>{errors.userAddress?.message}</small>}
+
+                            </div>
+                            <div className="flex gap-1">
+                                <div className="flex flex-col gap-1">
+                                    <select className="w-32" {...register("role", {
+                                        required: "*"
+                                    })}>
+                                        <option value="teacher">select Role</option>
+                                        <option value="student">Student</option>
+                                        <option value="teacher">Teacher</option>
+                                    </select>
+                                    {errors.role && <small className='relative ml-2 text-red-500 right-2'>{errors.role?.message}</small>}
+                                </div>
+
+                                <input type="text" {...register("phoneNumber", {
+                                    required: "*"
+                                })} placeholder="Phone Number" />
+                                {errors.phoneNumber && <small className='relative ml-2 text-red-500 right-2 '>{errors.phoneNumber?.message}</small>}
+                            </div>
+
+
+                            <input type={passwordFieldType("current")}  {...register("pass", {
+                                required: "Required",
+                                minLength: { value: 6, message: "Password must be 6 characters long" },
+                                pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: 'Password must have uppercase, number and special characters' }
+                            })} placeholder="🗝 Password..." />
+                            <div className="flex justify-end">
+                                <a className='relative bottom-14 left-32' title="See password" onClick={() => seePass("current")}><FaEye className="text-2xl" /></a>
+                            </div>
+                            {errors.pass && <small className='relative ml-2 text-red-500 bottom-14'>{errors.pass.message}</small>}
+                            <button type="submit">Sign Up</button>
                         </form>
                     </div>
-                    
+
                     <div className="form-container sign-in">
-                    <div className="flex "><NavLink to='/'><h2  className={`flex items-center w-20 gap-2 p-1 mt-3 ml-5 rounded-md sign-up-home ${!isSignUp ? 'block' : 'hidden'}`}><FaArrowLeft />HOME</h2></NavLink></div>
+                        <div className="flex "><NavLink to='/'><h2 className={`flex items-center w-20 gap-2 p-1 mt-3 ml-5 rounded-md sign-up-home ${!isSignUp ? 'block' : 'hidden'}`}><FaArrowLeft />HOME</h2></NavLink></div>
                         <form>
                             <span className=""> <FiUserCheck className="text-6xl font-bold icons" /></span>
                             <h1 className="text-2xl font-bold uppercase ">Student Login</h1>
@@ -42,7 +133,7 @@ const SignUp = () => {
                             <button>LOG-IN</button>
                         </form>
                     </div>
-                    
+
                     <div className="toggle-container">
                         <div className="toggle">
                             <div className={`toggle-panel toggle-left ${!isSignUp ? 'active' : ''}`}>
