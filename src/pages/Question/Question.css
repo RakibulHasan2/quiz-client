@@ -5,7 +5,7 @@
     height: 100vh;
     /* background-color: #dbe27b; */
     background: linear-gradient(to bottom right, rgb(196, 231, 99), rgb(238, 238, 226), transparent);
-    animation:gradient-animation 5s linear infinite; /* Adjust duration and timing function as needed */
+    animation:gradient-animation 5s linear infinite;
 }
 
 .qus-container textarea{
