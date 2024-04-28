@@ -1,5 +1,4 @@
 .quiz-option-container{
-
     top: 0;
     left: 0;
     width: 100%;
@@ -12,4 +11,17 @@ position: relative;
 color: rgb(48, 48, 28);
 -webkit-text-stroke: 0.4vw rgb(65, 73, 43);
 font-size: 4vw;
+}
+.qus-border{
+    border: 6px solid #000000;
+    border-top-left-radius: 40px;
+    
+}
+.option{
+    border: 3px solid #000000;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius:20px;
+}
+.border-line{
+    border-bottom:2px solid  #000000;
 }
