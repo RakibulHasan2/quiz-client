@@ -68,7 +68,7 @@ const Navbar = () => {
               </span>
             </NavLink>
           </div>
-          <div className="relative h-10 overflow-hidden text-2xl leading-6 text-black uppercase cursor-pointer group">
+      { userData?.role === "student"&&  <div className="relative h-10 overflow-hidden text-2xl leading-6 text-black uppercase cursor-pointer group">
             <NavLink to="/quiz">
               <span className="group-hover:-translate-y-[120%] inline-block p-1 transition duration-500 ease-out">
                 Quiz
@@ -79,8 +79,8 @@ const Navbar = () => {
                 Quiz
               </span>
             </NavLink>
-          </div>
-          <div className="relative h-10 overflow-hidden text-2xl leading-6 text-black uppercase cursor-pointer group">
+          </div>} 
+      { userData?.role === "teacher"&& <div className="relative h-10 overflow-hidden text-2xl leading-6 text-black uppercase cursor-pointer group">
             <NavLink to="/question">
               <span className="group-hover:-translate-y-[120%] inline-block p-1 transition duration-500 ease-out">
               Add Qus
@@ -91,7 +91,7 @@ const Navbar = () => {
               Add Qus
               </span>
             </NavLink>
-          </div>
+          </div>}  
         </div>
         <div className="text-2xl font-bold transition hover:text-lime-500">
           {!userData?<NavLink to="/signUp">LOG-IN</NavLink>

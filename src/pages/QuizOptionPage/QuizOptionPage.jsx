@@ -18,6 +18,7 @@ const QuizOptionPage = () => {
         };
         fetchData();
     }, [getByCatName]);
+    console.log(questions)
     const [animationOn, setAnimationOn] = useState(false)
     return (
         <ScrollTrigger onEnter={() => {
