@@ -4,6 +4,7 @@ import Home from '../pages/home/Home';
 import Quizes from '../pages/Quizes/Quizes';
 import SignUp from '../pages/signUp/SignUp';
 import Question from '../pages/Question/Question';
+import QuizOptionPage from './../pages/QuizOptionPage/QuizOptionPage';
 const routes = createBrowserRouter([
     {
         path: '/',
@@ -20,6 +21,13 @@ const routes = createBrowserRouter([
             {
                 path: '/question',
                 element: <Question/>,
+            },
+            {
+                path: '/quizPage/:getByCatName',
+                element: <QuizOptionPage/>,
+                loader:async ({questionCategory}) =>{
+                    return fetch(`https://localhost:7274/api/Question/getByCatName/${questionCategory}`)
+                }
             },
         ],
     },
