@@ -38,6 +38,7 @@ const Question = () => {
             }
         } catch (error) {
             console.error('Error creating', error);
+            addToast('internel server problem', { appearance: 'error' })
         }
 
 
@@ -59,6 +60,10 @@ const Question = () => {
                                 <option value="teacher">select Category</option>
                                 <option value="Visual Progamming">Visual Progamming</option>
                                 <option value="Java">Java</option>
+                                <option value="Data structure & algorithms">Data structure & algorithms</option>
+                                <option value="Machine learning">Machine learning</option>
+                                <option value="Computer networks">Computer networks</option>
+                                <option value="Operating Systems">Operating Systems</option>
                             </select>
                         </div>
 

@@ -1,0 +1,15 @@
+.quiz-container {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    /* background-color: #dbe27b; */
+    background: linear-gradient(to bottom left, rgb(196, 231, 99), rgb(238, 238, 226));
+}
+.quiz-category-background{
+    background: linear-gradient(to bottom, transparent 50%, rgb(186, 218, 99) 50%, rgb(196, 231, 99) 100%);
+}
+.category-card:hover{
+    border: 2px solid #000000;
+    /* background: rgb(196, 231, 99); */
+}
