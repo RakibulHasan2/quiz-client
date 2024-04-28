@@ -13,7 +13,7 @@ const Navbar = () => {
     addToast('User log out',{ appearance: 'success' })
     window.location.reload();
   }
-  console.log(userData)
+  // console.log(userData)
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
