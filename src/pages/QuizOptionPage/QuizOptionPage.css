@@ -1,0 +1,15 @@
+.quiz-option-container{
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    /* background-color: #dbe27b; */
+    background: linear-gradient(to bottom left, rgb(196, 231, 99), rgb(238, 238, 226));
+}
+.topic-name{
+position: relative;
+color: rgb(48, 48, 28);
+-webkit-text-stroke: 0.4vw rgb(65, 73, 43);
+font-size: 4vw;
+}

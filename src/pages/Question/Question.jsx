@@ -107,12 +107,10 @@ const Question = () => {
                 </div>
             </div>
             <div className="flex justify-center">
-
                 <div className='qus-content animate__animated animate__backInDown'>
                     <h1 className="uppercase">add_Question</h1>
                     <h1 className="uppercase">add_Question</h1>
                 </div>
-
             </div>
         </div>
     );

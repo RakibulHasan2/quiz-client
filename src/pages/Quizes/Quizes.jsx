@@ -16,26 +16,33 @@ const Quizes = () => {
             return data;
         }
     });
-    const uniqueCategoryNames = new Set(allCategory.map(category => category.questionCategory));
+    const uniqueCategoryNames = new Set(allCategory?.map(category => category?.questionCategory));
     // console.log(allCategory)
     return (
         <div className="pt-24 quiz-container">
             <div className="flex items-center justify-center w-full h-full">
                 <div className='w-4/5 pt-16 shadow-2xl h-4/5 rounded-xl quiz-category-background'>
 
-                   <Marquee pauseOnHover>    
-                     <div className='flex gap-4 p-2 pb-6 animate__animated animate__fadeInDown'>   
-                    {
-                    Array.from(uniqueCategoryNames).map(categoryName => (    
-                            <QuizCard
-                                categoryName={categoryName}
-                            >
-                            </QuizCard>                     
-                 
-                    ))
-                    }
+                    <Marquee pauseOnHover>
+                        <div className='flex gap-4 p-2 pb-6 animate__animated animate__fadeInDown'>
+                            {
+                                Array.from(uniqueCategoryNames)?.map(categoryName => (
+                                    <QuizCard
+                                        categoryName={categoryName}
+                                    >
+                                    </QuizCard>
 
-                    </div>  </Marquee>
+                                ))
+                            }
+
+                        </div>  </Marquee>
+                    <div className="flex justify-center mt-5">
+                        <div className='chose-topic animate__animated animate__backInUp'>
+                            <h1 className="uppercase">Chose_Topic</h1>
+                            <h1 className="uppercase">Chose_Topic</h1>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
