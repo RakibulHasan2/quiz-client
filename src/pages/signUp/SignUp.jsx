@@ -79,7 +79,7 @@ const SignUp = () => {
     };
     return (
         <div className="flex items-center justify-center h-screen">
-            <div>
+            <div className="animate__animated animate__zoomInDown">
                 <div className={`container ${isSignUp ? 'active' : ''}`}>
                     <div className="form-container sign-up">
                         <div className="flex justify-end"><NavLink to='/'><h2 className="flex items-center w-20 gap-2 p-1 mt-3 mr-5 rounded-md sign-up-home"><FaArrowLeft />HOME</h2></NavLink></div>
