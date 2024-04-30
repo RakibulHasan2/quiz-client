@@ -1,0 +1,18 @@
+.profile-container{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    /* background-color: #dbe27b; */
+    background: linear-gradient(to bottom left, rgb(196, 231, 99), rgb(238, 238, 226));
+}
+
+.profile-background {
+    background: linear-gradient(to bottom, rgb(184, 233, 50) 50%, rgb(186, 218, 99) 50%,rgb(234, 245, 205) 100%);
+}
+.avatar{
+    margin-top: 8%;
+}
+.borderr{
+    border-right: 2px solid #232413;
+}

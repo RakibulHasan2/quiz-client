@@ -24,11 +24,11 @@ const HomeSectionFour = () => {
                 <img className='absolute' src={celebrate} alt="" />
                     <div className='flex justify-center '>
                         { animationOn &&
-                        <div className='w-2/3'>
+                        <div className='w-2/3 italic uppercase'>
                             <div className='flex mt-24 justify-evenly'>
                                 <div className='p-5 font-bold bg-transparent w-60 rounded-xl backdrop-blur-md count-border'>
                                     <div className='flex flex-col items-center'>
-                                        <h1 className=''>over student</h1>
+                                        <h1 className=''>Over student</h1>
                                         <p className='text-6xl'><CountUp start={0} end={25} duration={4} delay={0.2} />+</p>
                                         <h1>countries</h1>
                                     </div>
@@ -37,7 +37,7 @@ const HomeSectionFour = () => {
                                     <div className='flex flex-col items-center'>
                                         <h1 className=''>Top Platfrom over</h1>
                                         <p className='text-6xl'><CountUp start={0} end={13} duration={4} delay={0.2} /></p>
-                                        <h1>Students</h1>
+                                        <h1>Countries</h1>
                                     </div>
                                 </div>
                                 <div className='p-5 font-bold bg-transparent w-60 rounded-xl backdrop-blur-md count-border'>
@@ -52,22 +52,22 @@ const HomeSectionFour = () => {
                             <div className='flex mt-28 justify-evenly'>
                                 <div className='p-5 font-bold bg-transparent w-60 rounded-xl backdrop-blur-md count-border'>
                                     <div className='flex flex-col items-center'>
-                                        <h1 className=''>over student</h1>
-                                        <p className='text-6xl'><CountUp start={0} end={25} duration={4} delay={0.2} />+</p>
-                                        <h1>countries</h1>
+                                        <h1 className=''>Over student</h1>
+                                        <p className='text-6xl'><CountUp start={0} end={75} duration={4} delay={0.2} />+</p>
+                                        <h1>Countries</h1>
                                     </div>
                                 </div>
                                 <div className='p-5 font-bold bg-transparent w-60 rounded-xl backdrop-blur-md count-border'>
                                     <div className='flex flex-col items-center'>
                                         <h1 className=''>Top Platfrom over</h1>
-                                        <p className='text-6xl'><CountUp start={0} end={13} duration={4} delay={0.2} /></p>
-                                        <h1>Students</h1>
+                                        <p className='text-6xl'><CountUp start={0} end={32} duration={4} delay={0.2} /></p>
+                                        <h1>Countries</h1>
                                     </div>
                                 </div>
                                 <div className='p-5 font-bold bg-transparent w-60 rounded-xl backdrop-blur-md count-border'>
                                     <div className='flex flex-col items-center'>
                                         <h1 className=''>Participate</h1>
-                                        <p className='text-6xl'><CountUp start={0} end={500} duration={4} delay={0.2} />K+</p>
+                                        <p className='text-6xl'><CountUp start={0} end={950} duration={4} delay={0.2} />K+</p>
                                         <h1>Students</h1>
                                     </div>
                                 </div>

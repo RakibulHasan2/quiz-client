@@ -4,8 +4,14 @@ import loader from '../../images/loader/loader.gif'
 import { useQuery } from 'react-query';
 import './Quiz.css'
 import QuizCard from "./QuizCard";
+import { useNavigate } from "react-router-dom";
+import { useUserData } from "../../Hooks/Hooks";
 const Quizes = () => {
-
+    const userData = useUserData()
+    const navigate = useNavigate();
+    if(!userData) {
+        navigate('/')
+    }
     const { data: allCategory = [] } = useQuery({
         queryKey: ['allCategory'],
         queryFn: async () => {
