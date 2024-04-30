@@ -91,10 +91,11 @@ const QuizOptionPage = () => {
             console.log(responseResultData)
 
             if (responseResultData) {
-                addToast(`your ${getByCatName} Quizes submited successfully`, { appearance: 'success' })
+                addToast(`your ${getByCatName} Quiz submited successfully`, { appearance: 'success' })
+                window.location.reload();
             }
             else {
-                addToast(`your ${getByCatName} Quizes fail to submit`, { appearance: 'error' })
+                addToast(`your ${getByCatName} Quiz fail to submit`, { appearance: 'error' })
             }
 
         } catch (error) {
@@ -297,7 +298,7 @@ const QuizOptionPage = () => {
                                             return (
                                                 <p
                                                     key={optionKey}
-                                                    className={`animate__animated animate__bounceInUp p-4 bg-transparent shadow-2xl w-60 option backdrop-blur-xl ${optionStyle}`}
+                                                    className={`ml-2 animate__animated animate__bounceInUp p-4 bg-transparent shadow-2xl w-60 option backdrop-blur-xl ${optionStyle}`}
                                                 >
                                                     {option}
                                                 </p>

@@ -24,8 +24,8 @@ const userData = useUserData()
     return (
         <div className="pt-20 profile-container">
             <div className="flex items-center justify-center w-full h-full">            
-                <div className='w-4/5 p-2 shadow-2xl h-4/5 rounded-xl profile-background'>
-                <div className="flex justify-center mt-10">
+                <div className='w-4/5 p-10 shadow-2xl h-4/5 rounded-xl profile-background'>
+                <div className="flex justify-center mt-5">
                         <div className='chose-topic animate__animated animate__backInUp'>
                             <h1 className="uppercase">My_Profile</h1>
                             <h1 className="uppercase">My_Profile</h1>
@@ -44,7 +44,7 @@ const userData = useUserData()
                                </div>
                             </div>
                             <div className='p-5 italic font-bold bg-transparent shadow-2xl backdrop-blur-lg rounded-2xl animate__animated animate__backInUp'>
-                                <h1>Bio : <br /> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et blanditiis nam tenetur aperiam animi explicabo, ad eaque amet quo? Molestias nulla laboriosam voluptates, quidem nostrum impedit quia aspernatur. Praesentium sapiente ducimus et corporis rem, quaerat mollitia voluptates, quas ea minus harum! Consequuntur excepturi animi doloremque autem suscipit, odio consectetur ex dolorem aut dolore dignissimos repudiandae esse nihil ipsum praesentium corporis aliquam.</h1>
+                                <h1>Bio : <br /> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et blanditiis nam tenetur aperiam animi explicabo, ad eaque amet quo? Molestias nulla laboriosam voluptates, quidem nostrum impedit quia aspernatur. Praesentium sapiente ducimus et corporis rem, quaerat mollitia voluptates, quas ea minus harum! Consequuntur excepturi animi doloremque autem suscipit, .</h1>
                             </div>
                     </div>
                            
