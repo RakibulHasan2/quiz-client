@@ -5,7 +5,8 @@ import Quizes from '../pages/Quizes/Quizes';
 import SignUp from '../pages/signUp/SignUp';
 import Question from '../pages/Question/Question';
 import QuizOptionPage from './../pages/QuizOptionPage/QuizOptionPage';
-import Score from './../pages/Score/Score';
+import Profile from './../pages/Profile/Profile';
+import LeaderBoard from '../pages/LeaderBoard/LeaderBoard';
 const routes = createBrowserRouter([
     {
         path: '/',
@@ -24,8 +25,12 @@ const routes = createBrowserRouter([
                 element: <Question/>,
             },
             {
-                path: '/score',
-                element: <Score/>
+                path: '/myProfile',
+                element: <Profile/>,
+            },
+            {
+                path: '/leaderboard',
+                element: <LeaderBoard/>,
             },
             {
                 path: '/quizPage/:getByCatName',
