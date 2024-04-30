@@ -2,7 +2,12 @@
 import { useForm } from 'react-hook-form';
 import './Question.css'
 import { useToasts } from 'react-toast-notifications';
+import { useUserData } from '../../Hooks/Hooks';
+import { useNavigate } from "react-router-dom";
 const Question = () => {
+    const userData = useUserData()
+    const navigate = useNavigate();
+  
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { addToast } = useToasts();
     const handleQusSubmit = async (data) => {
@@ -18,7 +23,7 @@ const Question = () => {
         }
         // console.log(qusData.answer)
         try {
-            const response = await fetch('https://localhost:7274/api/Question', {
+            const response = await fetch('https://localhost:7118/api/Question', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -38,11 +43,17 @@ const Question = () => {
             }
         } catch (error) {
             console.error('Error creating', error);
+            addToast('internel server problem', { appearance: 'error' })
         }
 
 
     }
 
+        if (!userData) {
+            navigate('/');
+ 
+    }
+    console.log(userData)
     return (
         <div className="pt-24 qus-container">
             <div className='flex items-center justify-center w-full h-full'>
@@ -59,6 +70,10 @@ const Question = () => {
                                 <option value="teacher">select Category</option>
                                 <option value="Visual Progamming">Visual Progamming</option>
                                 <option value="Java">Java</option>
+                                <option value="Data structure & algorithms">Data structure & algorithms</option>
+                                <option value="Machine learning">Machine learning</option>
+                                <option value="Computer networks">Computer networks</option>
+                                <option value="Operating Systems">Operating Systems</option>
                             </select>
                         </div>
 
@@ -102,12 +117,10 @@ const Question = () => {
                 </div>
             </div>
             <div className="flex justify-center">
-
                 <div className='qus-content animate__animated animate__backInDown'>
                     <h1 className="uppercase">add_Question</h1>
                     <h1 className="uppercase">add_Question</h1>
                 </div>
-
             </div>
         </div>
     );
