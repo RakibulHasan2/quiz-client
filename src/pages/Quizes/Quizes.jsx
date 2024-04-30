@@ -15,7 +15,7 @@ const Quizes = () => {
     const { data: allCategory = [] } = useQuery({
         queryKey: ['allCategory'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7274/api/Question/Fetch`);
+            const res = await fetch(`https://localhost:7118/api/Question/Fetch`);
             const data = await res.json();
             return data;
         }

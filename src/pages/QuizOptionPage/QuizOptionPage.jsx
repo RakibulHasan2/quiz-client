@@ -24,7 +24,7 @@ const QuizOptionPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://localhost:7274/api/Question/getByCatName/${getByCatName}`);
+                const response = await fetch(`https://localhost:7118/api/Question/getByCatName/${getByCatName}`);
                 const data = await response.json();
                 setQuestions(data);
                 const initialSelectedOptions = {};
@@ -79,7 +79,7 @@ const QuizOptionPage = () => {
         console.log(optionSelectedData);
 
         try {
-            const response = await fetch('https://localhost:7274/api/Result', {
+            const response = await fetch('https://localhost:7118/api/Result', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ const QuizOptionPage = () => {
     const { data: finalResult = [] } = useQuery({
         queryKey: ['finalResult'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7274/api/Result/getByCatName/${getByCatName}`);
+            const res = await fetch(`https://localhost:7118/api/Result/getByCatName/${getByCatName}`);
             const data = await res.json();
             return data;
         }
@@ -126,7 +126,7 @@ const QuizOptionPage = () => {
         let count = 0;
         questions.forEach(question => {
             const correctAnswer = getCorrectAnswer(question.questionID.increment);
-            const isCorrect = finalResult.some(result => result.selectedOptions[question.questionID.increment] === correctAnswer);
+            const isCorrect = filterFinalResult.some(result => result.selectedOptions[question.questionID.increment] === correctAnswer);
             const numCorrectOptions = ['option1', 'option2', 'option3', 'option4'].reduce((acc, optionKey) => {
                 if (question[optionKey] === correctAnswer) {
                     return acc + 1;
@@ -151,7 +151,7 @@ const QuizOptionPage = () => {
         }
 
         try {
-            const response = await fetch(`https://localhost:7274/api/Result/${filterFinalResult[0]?.resultID}`, {
+            const response = await fetch(`https://localhost:7118/api/Result/${filterFinalResult[0]?.resultID}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -220,14 +220,14 @@ const QuizOptionPage = () => {
                                 <div className='w-1/2'>
                                     <div className='flex justify-evenly'>
                                         <button
-                                            className={`p-4 bg-transparent shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option1 ? 'selected-option bg-green-500 text-black font-bold' : ''}`}
+                                            className={`p-4  shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option1 ? 'selected-option bg-green-500 text-black font-bold' : ''}`}
                                             onClick={() => handleOptionSelect(question.questionID.
                                                 increment, question.option1)}
                                         >
                                             A- {question.option1}
                                         </button>
                                         <button
-                                            className={`p-4 bg-transparent shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option2 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
+                                            className={`p-4  shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option2 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
                                             onClick={() => handleOptionSelect(question.questionID.
                                                 increment, question.option2)}
                                         >
@@ -236,14 +236,14 @@ const QuizOptionPage = () => {
                                     </div>
                                     <div className='flex mt-5 justify-evenly'>
                                         <button
-                                            className={`p-4 bg-transparent shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option3 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
+                                            className={`p-4  shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option3 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
                                             onClick={() => handleOptionSelect(question.questionID.
                                                 increment, question.option3)}
                                         >
                                             C- {question.option3}
                                         </button>
                                         <button
-                                            className={`p-4 bg-transparent shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option4 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
+                                            className={`p-4  shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option4 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
                                             onClick={() => handleOptionSelect(question.questionID.
                                                 increment, question.option4)}
                                         >
@@ -286,19 +286,19 @@ const QuizOptionPage = () => {
                                         {['option1', 'option2', 'option3', 'option4'].map((optionKey) => {
                                             const correctAnswer = getCorrectAnswer(question.questionID.increment);
                                             const option = question[optionKey];
-                                            const isCorrect = finalResult.some(result => result.selectedOptions[question.questionID.increment] === option);
-                                            console.log(isCorrect.length)
+                                            const isCorrect = filterFinalResult.some(result => result.selectedOptions[question.questionID.increment] === option);
+                                            console.log("is correct",isCorrect);
                                             let optionStyle = '';
                                             if (isCorrect) {
                                                 optionStyle = 'bg-blue-400';
                                             }
                                             else if (option === correctAnswer) {
-                                                optionStyle = 'bg-green-500';
+                                                optionStyle = 'bg-green-400';
                                             }
                                             return (
                                                 <p
                                                     key={optionKey}
-                                                    className={`ml-2 animate__animated animate__bounceInUp p-4 bg-transparent shadow-2xl w-60 option backdrop-blur-xl ${optionStyle}`}
+                                                    className={`ml-2 animate__animated animate__bounceInUp p-4  shadow-2xl w-60 option backdrop-blur-xl ${optionStyle}`}
                                                 >
                                                     {option}
                                                 </p>

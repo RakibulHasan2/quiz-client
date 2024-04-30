@@ -15,7 +15,7 @@ const LeaderBoard = () => {
     const { data: allResult = [] } = useQuery({
         queryKey: ['allProfile'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7274/api/Result/Fetch`);
+            const res = await fetch(`https://localhost:7118/api/Result/Fetch`);
             const data = await res.json();
             return data;
         }
