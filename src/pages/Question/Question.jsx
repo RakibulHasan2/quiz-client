@@ -2,7 +2,12 @@
 import { useForm } from 'react-hook-form';
 import './Question.css'
 import { useToasts } from 'react-toast-notifications';
+import { useUserData } from '../../Hooks/Hooks';
+import { useNavigate } from "react-router-dom";
 const Question = () => {
+    const userData = useUserData()
+    const navigate = useNavigate();
+  
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { addToast } = useToasts();
     const handleQusSubmit = async (data) => {
@@ -44,6 +49,11 @@ const Question = () => {
 
     }
 
+        if (!userData) {
+            navigate('/');
+ 
+    }
+    console.log(userData)
     return (
         <div className="pt-24 qus-container">
             <div className='flex items-center justify-center w-full h-full'>
