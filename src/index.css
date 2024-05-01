@@ -5,6 +5,17 @@
 :root{
   background: rgb(238, 238, 226);
 }
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background-color: rgb(50, 71, 10);
+}
+::-webkit-scrollbar-thumb{
+  background: rgb(158, 207, 68);
+  border-radius: 4px;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
