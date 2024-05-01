@@ -15,7 +15,7 @@ const Quizes = () => {
     const { data: allCategory = [] } = useQuery({
         queryKey: ['allCategory'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7118/api/Question/Fetch`);
+            const res = await fetch(`https://localhost:7274/api/Question/Fetch`);
             const data = await res.json();
             return data;
         }
@@ -44,8 +44,8 @@ const Quizes = () => {
 
                     <div className="flex justify-center mt-5">
                         <div className='chose-topic animate__animated animate__backInUp'>
-                            <h1 className="uppercase">Chose_Topic</h1>
-                            <h1 className="uppercase">Chose_Topic</h1>
+                            <h1 className="uppercase">Choose_Topic</h1>
+                            <h1 className="uppercase">Choose_Topic</h1>
                         </div>
 
                     </div>

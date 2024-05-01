@@ -7,6 +7,8 @@ import Footer from '../footer/Footer'
 import HomeSectionTwo from '../HomeSectionTwo/HomeSectionTwo';
 import HomeSectionThree from '../homeSectionThree/HomeSectionThree';
 import HomeSectionFour from '../homeSectionFour/HomeSectionFour';
+import ScrollToTop from 'react-scroll-to-top';
+
 const Home = () => {
     // useEffect(() => {
     //     const timer1 = setTimeout(() => {
@@ -41,6 +43,8 @@ const Home = () => {
       
     return (
 <div>
+<ScrollToTop smooth top="500" 
+        width="40"/>
 <div className=" h-screens">
             {/* RippleBackground applied as background */}
             <div className="ripple-background">

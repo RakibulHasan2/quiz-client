@@ -10,7 +10,7 @@ const userData = useUserData()
     const { data: allProfile = [] } = useQuery({
         queryKey: ['allProfile'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7118/api/User/Fetch`);
+            const res = await fetch(`https://localhost:7274/api/User/Fetch`);
             const data = await res.json();
             return data;
         }

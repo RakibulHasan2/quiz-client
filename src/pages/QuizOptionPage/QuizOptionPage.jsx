@@ -24,7 +24,7 @@ const QuizOptionPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://localhost:7118/api/Question/getByCatName/${getByCatName}`);
+                const response = await fetch(`https://localhost:7274/api/Question/getByCatName/${getByCatName}`);
                 const data = await response.json();
                 setQuestions(data);
                 const initialSelectedOptions = {};
@@ -79,7 +79,7 @@ const QuizOptionPage = () => {
         console.log(optionSelectedData);
 
         try {
-            const response = await fetch('https://localhost:7118/api/Result', {
+            const response = await fetch('https://localhost:7274/api/Result', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ const QuizOptionPage = () => {
     const { data: finalResult = [] } = useQuery({
         queryKey: ['finalResult'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7118/api/Result/getByCatName/${getByCatName}`);
+            const res = await fetch(`https://localhost:7274/api/Result/getByCatName/${getByCatName}`);
             const data = await res.json();
             return data;
         }
@@ -151,7 +151,7 @@ const QuizOptionPage = () => {
         }
 
         try {
-            const response = await fetch(`https://localhost:7118/api/Result/${filterFinalResult[0]?.resultID}`, {
+            const response = await fetch(`https://localhost:7274/api/Result/${filterFinalResult[0]?.resultID}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

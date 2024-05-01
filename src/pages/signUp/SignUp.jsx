@@ -32,7 +32,7 @@ const SignUp = () => {
         }
         // console.log(userData)
         try {
-            const response = await fetch('https://localhost:7118/api/User', {
+            const response = await fetch('https://localhost:7274/api/User', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ const SignUp = () => {
         <div className="flex items-center justify-center h-screen">
             <div className="animate__animated animate__zoomInDown">
                 <div className={`container ${isSignUp ? 'active' : ''}`}>
-                    <div className="form-container sign-up">
+                    <div className="form-container sign-up ">
                         <div className="flex justify-end"><NavLink to='/'><h2 className="flex items-center w-20 gap-2 p-1 mt-3 mr-5 rounded-md sign-up-home"><FaArrowLeft />HOME</h2></NavLink></div>
                         <form onSubmit={handleSubmit(handleCreateUser)}>
                             <span className=""> <LuUserCog className="text-5xl font-bold icons" /></span>
@@ -137,7 +137,7 @@ const SignUp = () => {
 
                         <div className="mt-12">
                             {isStudentLoginVisible ? (
-                                <div>
+                                <div className="animate__animated animate__flipInX">
                                     <TeacherLogin />
                                     <div className="flex justify-center mt-1">
                                         <small>Are you a Student? <span className="font-bold cursor-pointer text-lime-600" onClick={toggleLoginType}>Login Student Account</span></small>
@@ -146,7 +146,7 @@ const SignUp = () => {
 
                             ) : (
 
-                                <div>
+                                <div className="animate__animated animate__flipInY">
                                     <StudentLogin />
                                     <div className="flex justify-center mt-1">
                                         <small>Are you a Teacher? <span className="font-bold cursor-pointer text-lime-600" onClick={toggleLoginType}>Login Teacher Account</span></small>

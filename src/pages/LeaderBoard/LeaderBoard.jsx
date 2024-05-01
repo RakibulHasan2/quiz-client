@@ -15,7 +15,7 @@ const LeaderBoard = () => {
     const { data: allResult = [] } = useQuery({
         queryKey: ['allProfile'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7118/api/Result/Fetch`);
+            const res = await fetch(`https://localhost:7274/api/Result/Fetch`);
             const data = await res.json();
             return data;
         }
@@ -57,6 +57,12 @@ const LeaderBoard = () => {
 
     return (
         <div className="pt-20 leader-container">
+             <div className="flex justify-center">
+                <div className='mb-20 mt-14 leader-content animate__animated animate__backInRight'>
+                    <h1 className="uppercase">Leader_board</h1>
+                    <h1 className="uppercase">Leader_board</h1>
+                </div>
+            </div>
             <div className='flex justify-center animate__animated animate__backInUp'>
                 {computerNetworks?.length > 0 &&
                     <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
