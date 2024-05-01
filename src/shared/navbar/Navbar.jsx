@@ -7,6 +7,11 @@ import { useUserData } from "../../Hooks/Hooks";
 import { useToasts } from "react-toast-notifications";
 import student from '../../images/logo/output-onlinegiftools (21) (1).gif'
 import teacher from '../../images/logo/output-onlinegiftools (21).gif'
+import { FaHome } from "react-icons/fa";
+import { MdOutlineQuiz } from "react-icons/md";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { MdOutlineLeaderboard } from "react-icons/md";
+
 const Navbar = () => {
 
   const { addToast } = useToasts();
@@ -60,51 +65,87 @@ const Navbar = () => {
           </NavLink>
         </div>
         <div className="flex gap-5 ">
-          <div className="relative h-10 overflow-hidden text-2xl leading-6 text-black uppercase cursor-pointer group">
-            <NavLink to="/">
+          <div
+           className="relative h-10 overflow-hidden text-lg font-bold leading-6 text-black uppercase cursor-pointer group">
+            <NavLink className={({ isActive }) =>
+              isActive
+              ? 'text-lime-600'
+              : 'text-black'
+            } to="/">
               <span className="group-hover:-translate-y-[120%] inline-block p-1 transition duration-500 ease-out">
-                HOME
+                <p className="flex items-center gap-1">HOME<FaHome /></p>
               </span>
             </NavLink>
-            <NavLink to="/">
+            <NavLink className={({ isActive }) =>
+              isActive
+              ? 'text-lime-600'
+              : 'text-black'
+            } to="/">
               <span className="absolute left-0 rotate-12 inline-block translate-y-[120%] p-1 transition duration-500 ease-out group-hover:-translate-y-0 group-hover:rotate-0">
-                HOME
+              <p className="flex items-center gap-1">HOME<FaHome /></p>
               </span>
             </NavLink>
           </div>
-          {userData?.role === "student" && <div className="relative h-10 overflow-hidden text-2xl leading-6 text-black uppercase cursor-pointer group">
-            <NavLink to="/quiz">
+          {userData?.role === "student" && 
+          <div className="relative h-10 overflow-hidden text-lg font-bold leading-6 text-black uppercase cursor-pointer group">
+            <NavLink className={({ isActive }) =>
+              isActive
+              ? 'text-lime-600'
+              : 'text-black'
+            } to="/quiz" >
               <span className="group-hover:-translate-y-[120%] inline-block p-1 transition duration-500 ease-out">
-                Quiz
+              <p className="flex items-center gap-1">Quiz<MdOutlineQuiz /></p>
               </span>
             </NavLink>
-            <NavLink to="/quiz">
+            <NavLink className={({ isActive }) =>
+              isActive
+              ? 'text-lime-600'
+              : 'text-black'
+            } to="/quiz">
               <span className="absolute left-0 rotate-12 inline-block translate-y-[120%] p-1 transition duration-500 ease-out group-hover:-translate-y-0 group-hover:rotate-0">
-                Quiz
+              <p className="flex items-center gap-1">Quiz<MdOutlineQuiz /></p>
               </span>
             </NavLink>
           </div>}
-          {userData?.role === "teacher" && <div className="relative h-10 overflow-hidden text-2xl leading-6 text-black uppercase cursor-pointer group">
-            <NavLink to="/question">
+          {userData?.role === "teacher" && 
+          <div className="relative h-10 overflow-hidden text-lg font-bold leading-6 text-black uppercase cursor-pointer group">
+            <NavLink className={({ isActive }) =>
+              isActive
+              ? 'text-lime-600'
+              : 'text-black'
+            } to="/question">
               <span className="group-hover:-translate-y-[120%] inline-block p-1 transition duration-500 ease-out">
-                Add Qus
+              <p className="flex items-center gap-1">Add_Qus<IoIosAddCircleOutline /></p>
               </span>
             </NavLink>
-            <NavLink to="/question">
+            <NavLink className={({ isActive }) =>
+              isActive
+              ? 'text-lime-600'
+              : 'text-black'
+            } to="/question">
               <span className="absolute left-0 rotate-12 inline-block translate-y-[125%] p-1 transition duration-500 ease-out group-hover:-translate-y-0 group-hover:rotate-0">
-                Add Qus
+              <p className="flex items-center gap-1">Add_Qus<IoIosAddCircleOutline /></p>
               </span>
             </NavLink>
           </div>}
-          {userData && <div className="relative h-10 overflow-hidden text-2xl leading-6 text-black uppercase cursor-pointer group">
-            <NavLink to="/leaderBoard">
+          {userData && 
+          <div className="relative h-10 overflow-hidden text-lg font-bold leading-6 text-black uppercase cursor-pointer group">
+            <NavLink className={({ isActive }) =>
+              isActive
+              ? 'text-lime-600'
+              : 'text-black'
+            } to="/leaderBoard">
               <span className="group-hover:-translate-y-[120%] inline-block p-1 transition duration-500 ease-out">
-                LEADER_BOARD
+              <p className="flex items-center gap-1">LEADER_BOARD<MdOutlineLeaderboard /></p>
               </span>
             </NavLink>
-            <NavLink to="/leaderBoard">
+            <NavLink className={({ isActive }) =>
+              isActive
+              ? 'text-lime-600'
+              : 'text-black'
+            } to="/leaderBoard">
               <span className="absolute left-0 rotate-12 inline-block translate-y-[155%] p-1 transition duration-500 ease-out group-hover:-translate-y-0 group-hover:rotate-0">
-                LEADER_BOARD
+              <p className="flex items-center gap-1">LEADER_BOARD<MdOutlineLeaderboard /></p>
               </span>
             </NavLink>
           </div>}

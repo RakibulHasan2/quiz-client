@@ -1,13 +1,14 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
-
+import ScrollToTop from 'react-scroll-to-top';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './QuizOptionPage.css';
 import { useUserData } from './../../Hooks/Hooks';
 import { useToasts } from 'react-toast-notifications';
 import { useQuery } from 'react-query';
-
+import arrows from '../../images/logo/4902548424a02117b7913c17d2e379ff.gif'
 const QuizOptionPage = () => {
     const navigate = useNavigate();
     const { addToast } = useToasts();
@@ -17,6 +18,7 @@ const QuizOptionPage = () => {
     const [correctAnswers, setCorrectAnswers] = useState({});
     const userData = useUserData()
     const [questionsWithSingleCorrectOption, setQuestionsWithSingleCorrectOption] = useState(0);
+    
    if(!userData){
         navigate('/')
    }
@@ -24,7 +26,7 @@ const QuizOptionPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://localhost:7118/api/Question/getByCatName/${getByCatName}`);
+                const response = await fetch(`https://localhost:7274/api/Question/getByCatName/${getByCatName}`);
                 const data = await response.json();
                 setQuestions(data);
                 const initialSelectedOptions = {};
@@ -52,20 +54,14 @@ const QuizOptionPage = () => {
     };
 
     const handleSubmit = async () => {
-        // Check if any of the selected options are null
         const isAnyOptionNull = Object.values(selectedOptions).some(option => option === null);
-
-        // If any option is null, display an error message and return early
         if (isAnyOptionNull) {
             addToast('Please answer all questions otherwise you cannot submit answers to questions', { appearance: 'warning' })
             return;
         }
         function generateRandom10DigitNumber() {
-            // Generate a random number between 1 and 9999999999
             const random10DigitNumber = Math.floor(Math.random() * 1e10);
-            // Convert the number to a string
             const randomNumberString = random10DigitNumber.toString();
-            // Pad the string with leading zeros if necessary to make it 10 digits
             return randomNumberString.padStart(10, '0');
         }
         const optionSelectedData = {
@@ -79,7 +75,7 @@ const QuizOptionPage = () => {
         console.log(optionSelectedData);
 
         try {
-            const response = await fetch('https://localhost:7118/api/Result', {
+            const response = await fetch('https://localhost:7274/api/Result', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -108,7 +104,7 @@ const QuizOptionPage = () => {
     const { data: finalResult = [] } = useQuery({
         queryKey: ['finalResult'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7118/api/Result/getByCatName/${getByCatName}`);
+            const res = await fetch(`https://localhost:7274/api/Result/getByCatName/${getByCatName}`);
             const data = await res.json();
             return data;
         }
@@ -151,7 +147,7 @@ const QuizOptionPage = () => {
         }
 
         try {
-            const response = await fetch(`https://localhost:7118/api/Result/${filterFinalResult[0]?.resultID}`, {
+            const response = await fetch(`https://localhost:7274/api/Result/${filterFinalResult[0]?.resultID}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -179,13 +175,17 @@ const QuizOptionPage = () => {
 
 
     return (
+        <div>  <ScrollToTop smooth top="500" 
+            component={<img className='bg-lime-200 rounded-xl' src={arrows}/>}/>
         <div className='pt-20 quiz-option-container'>
+          
+
             <div className='flex justify-center mb-10 topic-name animate__animated animate__flip'>
                 <h1>{getByCatName}</h1>
             </div>
             <div className='flex justify-center mb-10 font-bold text-green-700'>
                 {filterFinalResult?.length > 0 && phoneNumber === userData?.phoneNumber ?
-                    <div> <h1 className='text-2xl animate__animated animate__bounceInRight'>You have already taken the {getByCatName} Quiz</h1>
+                    <div> <h1 className='text-2xl italic animate__animated animate__bounceInRight'>You have taken the '{getByCatName}' Quiz</h1>
                        {filterFinalResult[0]?.score === "" ? <div className='flex justify-center mt-5'>
                             <button onClick={handleViewScore} className='score-btn'>view score<span></span></button>
                         </div> : <></>}
@@ -314,7 +314,8 @@ const QuizOptionPage = () => {
             </div> : <></>
             }
         </div>
-    );
+    </div>
+    );     
 };
 
 export default QuizOptionPage;

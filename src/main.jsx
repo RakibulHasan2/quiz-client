@@ -9,7 +9,7 @@ const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 <QueryClientProvider client={queryClient}>
-  <React.StrictMode>
+  <React.StrictMode >
     <ToastProvider  
     autoDismiss
     autoDismissTimeout={6000}>

@@ -6,3 +6,22 @@
     /* background-color: #dbe27b; */
     background: linear-gradient(to bottom right, rgb(196, 231, 99), rgb(238, 238, 226));
 }
+.leader-content{
+    position: relative;
+}
+.leader-content h1{
+    position: absolute;
+    color: #d4ec92;
+    transform: translate(-50%, -50%);
+    font-size: 7em;
+    font-weight: 700;
+}
+.leader-content h1:nth-child(1)
+{
+    color: transparent;
+    -webkit-text-stroke: 4px #000000;
+}
+.leader-content h2:nth-child(2)
+{
+    color: #b8c22a;
+}

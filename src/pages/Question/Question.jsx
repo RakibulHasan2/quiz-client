@@ -23,7 +23,7 @@ const Question = () => {
         }
         // console.log(qusData.answer)
         try {
-            const response = await fetch('https://localhost:7118/api/Question', {
+            const response = await fetch('https://localhost:7274/api/Question', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ const Question = () => {
                             <select className="w-64 rounded-lg animate__animated animate__backInRight" {...register("questionCategory", {
                                 required: "*"
                             })}>
-                                <option value="teacher">select Category</option>
+                                <option value="">select Category</option>
                                 <option value="Visual Progamming">Visual Progamming</option>
                                 <option value="Java">Java</option>
                                 <option value="Data structure & algorithms">Data structure & algorithms</option>

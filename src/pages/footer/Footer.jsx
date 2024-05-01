@@ -1,11 +1,11 @@
 
-
 import './Footer.css'
 import logo from '../../images/logo/pngwing.com (6).png'
 const Footer = () => {
+
     return (
 
-<footer className="mt-40 text-center footer-bg">
+<footer className="mt-40 text-center footer-bg" data-aos="zoom-in">
 
   <div className="flex items-center justify-center p-6 border-b-2 border-neutral-200 dark:border-neutral-500 lg:justify-between">
   <div className="hidden mr-12 md:block">
