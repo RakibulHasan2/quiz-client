@@ -1,6 +1,7 @@
 import './home.css'
 import man from '../../images/cartoon image/360_F_458630388_h2oAUzpYozE7lmpswiot0DPfy7ptYufJ-removebg-preview.png'
 import qmark from '../../images/gif/system-regular-57-help-question.gif'
+import arrow from '../../images/logo/4902548424a02117b7913c17d2e379ff.gif'
 import 'animate.css';
 import Footer from '../footer/Footer'
 // import { useEffect } from "react";
@@ -44,7 +45,8 @@ const Home = () => {
     return (
 <div>
 <ScrollToTop smooth top="500" 
-        width="40"/>
+        component={<img className='bg-lime-200 rounded-xl' src={arrow}/>}
+        width="50"/>
 <div className=" h-screens">
             {/* RippleBackground applied as background */}
             <div className="ripple-background">

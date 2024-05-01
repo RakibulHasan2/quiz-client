@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import './LeaderBoard.css'
 import { useUserData } from '../../Hooks/Hooks';
 import { useQuery } from 'react-query';
-
+import ScrollToTop from 'react-scroll-to-top';
+import up from '../../images/logo/4902548424a02117b7913c17d2e379ff.gif'
 const LeaderBoard = () => {
     const navigate = useNavigate();
     const userData = useUserData();
@@ -57,6 +58,9 @@ const LeaderBoard = () => {
 
     return (
         <div className="pt-20 leader-container">
+            <ScrollToTop smooth top="500" 
+        component={<img className='bg-lime-200 rounded-xl' src={up}/>}
+        width="50"/>
              <div className="flex justify-center">
                 <div className='mb-20 mt-14 leader-content animate__animated animate__backInRight'>
                     <h1 className="uppercase">Leader_board</h1>

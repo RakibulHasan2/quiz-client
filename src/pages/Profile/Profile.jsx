@@ -35,12 +35,12 @@ const userData = useUserData()
                     <div className='grid grid-cols-2 gap-3 avatar'>
                          <div className='flex items-center gap-3 borderr animate__animated animate__backInDown'>
                               <div>{userData?.role === "teacher" &&<img className='w-52' src={teacher} alt="" /> } 
-                               {userData?.role === "student" &&<img src={student} alt="" /> } </div> 
+                               {userData?.role === "student" &&<img className='w-52' src={student} alt="" /> } </div> 
                                <div className='text-2xl italic font-bold'>
                                     <h1>Name : {singleProfile[0]?.userName}</h1>
                                     <p>Role : {singleProfile[0]?.role}</p>
-                                    <p>Adress : {singleProfile[0]?.userAddress}</p>
-                                    <p>Phone Number : {singleProfile[0]?.phoneNumber}</p>
+                                    <p className='text-lg'>Address : {singleProfile[0]?.userAddress}</p>
+                                    <p className='text-lg'>Phone no : {singleProfile[0]?.phoneNumber}</p>
                                </div>
                             </div>
                             <div className='p-5 italic font-bold bg-transparent shadow-2xl backdrop-blur-lg rounded-2xl animate__animated animate__backInUp'>

@@ -79,6 +79,7 @@ const SignUp = () => {
     };
     return (
         <div className="flex items-center justify-center h-screen">
+            
             <div className="animate__animated animate__zoomInDown">
                 <div className={`container ${isSignUp ? 'active' : ''}`}>
                     <div className="form-container sign-up ">
