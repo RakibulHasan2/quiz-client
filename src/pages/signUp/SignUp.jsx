@@ -32,7 +32,7 @@ const SignUp = () => {
         }
         // console.log(userData)
         try {
-            const response = await fetch('https://localhost:7274/api/User', {
+            const response = await fetch('https://localhost:7118/api/User', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -41,46 +41,46 @@ const Home = () => {
 
     //     return () => clearTimeout(timer3);
     // }, []);
-      
+
     return (
-<div>
-<ScrollToTop smooth top="500" 
-        component={<img className='bg-lime-200 rounded-xl' src={arrow}/>}
-        width="50"/>
-<div className=" h-screens">
-            {/* RippleBackground applied as background */}
-            <div className="ripple-background">
-                <div className="circle xxlarge shade1"></div>
-                <div className="circle xlarge shade2"></div>
-                <div className="circle large shade3"></div>
-                <div className="circle medium shade4"></div>
-                <div className="circle small shade5"></div>
-            </div>
-          <div className="flex justify-between h-screen ">
-                <div className="uppercase three-tx">
-                    <p className="ml-20 font-extrabold text-8xl tx-1 animate__animated animate__bounceInLeft">Show</p>
-                    <p className="mt-10 font-extrabold tx-2 ml-44 text-8xl animate__animated animate__jello">your</p>
-                    <span className="flex text-center tx-3 animate__animated animate__bounceInRight"><p className="mt-12 font-extrabold text-8xl ml-80">IQ</p><img className="w-20 h-20 mt-16" src={qmark} alt="" /></span>
+        <div>
+            <ScrollToTop smooth top="500"
+                component={<img className='bg-lime-200 rounded-xl' src={arrow} />}
+                width="50" />
+            <div className=" h-screens">
+                {/* RippleBackground applied as background */}
+                <div className="ripple-background">
+                    <div className="circle xxlarge shade1"></div>
+                    <div className="circle xlarge shade2"></div>
+                    <div className="circle large shade3"></div>
+                    <div className="circle medium shade4"></div>
+                    <div className="circle small shade5"></div>
                 </div>
-            <div className=" home-img-container animate__animated animate__fadeInRight">
-                <img className=" home-img move-up-down" src={man} alt="" />
+                <div className="flex justify-between h-screen ">
+                    <div className="uppercase three-tx">
+                        <p className="ml-20 font-extrabold text-8xl tx-1 animate__animated animate__bounceInLeft">Show</p>
+                        <p className="mt-10 font-extrabold tx-2 ml-44 text-8xl animate__animated animate__jello">your</p>
+                        <span className="flex text-center tx-3 animate__animated animate__bounceInRight"><p className="mt-12 font-extrabold text-8xl ml-80">IQ</p><img className="w-20 h-20 mt-16" src={qmark} alt="" /></span>
+                    </div>
+                    <div className=" home-img-container animate__animated animate__fadeInRight">
+                        <img className=" home-img move-up-down" src={man} alt="" />
+                    </div>
+                </div>
+
             </div>
-            </div>  
-          
+            <div>
+                <HomeSectionTwo />
+            </div>
+
+            <div>
+                <HomeSectionThree />
+            </div>
+            <div>
+                <HomeSectionFour />
+            </div>
+            <Footer />
         </div>
-        <div>
-            <HomeSectionTwo/> 
-        </div>
-          
-        <div>
-              <HomeSectionThree/>
-        </div>
-        <div>
-            <HomeSectionFour/>
-        </div>
-     <Footer/>
-</div>
-   
+
     );
 };
 
