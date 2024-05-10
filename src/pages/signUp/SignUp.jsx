@@ -32,7 +32,7 @@ const SignUp = () => {
         }
         // console.log(userData)
         try {
-            const response = await fetch('https://localhost:7274/api/User', {
+            const response = await fetch('http://localhost:5000/api/User', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,16 +41,16 @@ const SignUp = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData)
-            if (responseData) {
+            console.log(responseData.result)
+            if (responseData.message === "User created successfully") {
                 console.log('User created successfully');
                 addToast('User created successfully', { appearance: 'success' })
                 sessionStorage.setItem('userData', JSON.stringify(userData));
                 navigate('/')
                 reset();
             } else {
-                addToast('User not created', { appearance: 'error' })
-                console.log('Failed to create user');
+                addToast(`${responseData.error}`, { appearance: 'error' })
+                // console.log(`${responseData.error}`);
             }
         } catch (error) {
             console.error('Error creating', error);

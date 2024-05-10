@@ -12,7 +12,7 @@ const TeacherLogin = () => {
     const navigate = useNavigate();
     const handleLoginUser= async(data) => {
         try {
-            const response = await fetch('https://localhost:7274/api/User/login', {
+            const response = await fetch('http://localhost:5000/api/User/login', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -23,14 +23,14 @@ const TeacherLogin = () => {
             const responseData = await response.json();
             console.log(responseData);
       
-            if (responseData) {
+            if (responseData.message === "Login successful") {
               console.log('Login successful');
               addToast('User Log in successfully',{ appearance: 'success' })
               sessionStorage.setItem('userData', JSON.stringify(responseData));
                 navigate('/')
                 reset();
             } else {
-                addToast('login in fail please try again',{ appearance: 'error' })
+                addToast(`${responseData.error}`,{ appearance: 'error' })
              
             }
           } catch (error) {
