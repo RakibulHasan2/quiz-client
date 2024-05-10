@@ -36,7 +36,7 @@ const routes = createBrowserRouter([
                 path: '/quizPage/:getByCatName',
                 element: <QuizOptionPage/>,
                 loader:async ({questionCategory}) =>{
-                    return fetch(`https://localhost:7274/api/Question/getByCatName/${questionCategory}`)
+                    return fetch(`http://localhost:5000/api/Question/getByCatName/${questionCategory}`)
                 }
             },
         ],
