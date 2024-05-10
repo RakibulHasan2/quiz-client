@@ -10,13 +10,15 @@ const userData = useUserData()
     const { data: allProfile = [] } = useQuery({
         queryKey: ['allProfile'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7274/api/User/Fetch`);
+            const res = await fetch(`http://localhost:5000/api/User/Fetch`);
             const data = await res.json();
             return data;
         }
     });
-    const singleProfile = allProfile.filter(profile => profile?.phoneNumber === userData?.phoneNumber)
-    console.log(singleProfile)
+    const fineNumber = allProfile?.data?.map(p => p)
+    const singleProfile = fineNumber?.filter(profile => profile?.phoneNumber === userData?.user?.phoneNumber)
+    console.log(singleProfile && singleProfile[0]?.userName)
+   
     if(!userData){
         navigate('/')
    }
@@ -34,13 +36,13 @@ const userData = useUserData()
                     </div>
                     <div className='grid grid-cols-2 gap-3 avatar'>
                          <div className='flex items-center gap-3 borderr animate__animated animate__backInDown'>
-                              <div>{userData?.role === "teacher" &&<img className='w-52' src={teacher} alt="" /> } 
-                               {userData?.role === "student" &&<img className='w-52' src={student} alt="" /> } </div> 
+                              <div>{userData?.user?.role === "teacher" &&<img className='w-52' src={teacher} alt="" /> } 
+                               {userData?.user?.role === "student" &&<img className='w-52' src={student} alt="" /> } </div> 
                                <div className='text-2xl italic font-bold'>
-                                    <h1>Name : {singleProfile[0]?.userName}</h1>
-                                    <p>Role : {singleProfile[0]?.role}</p>
-                                    <p className='text-lg'>Address : {singleProfile[0]?.userAddress}</p>
-                                    <p className='text-lg'>Phone no : {singleProfile[0]?.phoneNumber}</p>
+                                    <h1>Name : {singleProfile && singleProfile[0]?.userName}</h1>
+                                    <p>Role : {singleProfile && singleProfile[0]?.role}</p>
+                                    <p className='text-lg'>Address : {singleProfile && singleProfile[0]?.userAddress}</p>
+                                    <p className='text-lg'>Phone no : {singleProfile && singleProfile[0]?.phoneNumber}</p>
                                </div>
                             </div>
                             <div className='p-5 italic font-bold bg-transparent shadow-2xl backdrop-blur-lg rounded-2xl animate__animated animate__backInUp'>
