@@ -61,14 +61,14 @@ const StudentLogin = () => {
                 <h1 className="text-2xl font-bold uppercase ">Student Login</h1>
                 <input type="text" {...register("phoneNumber", {
                     required: "Required"
-                })} placeholder="Phone Number" defaultValue="01753483145" />
+                })} placeholder="Phone Number" defaultValue="19437975132" />
                 {errors.phoneNumber && <small className='relative ml-2 text-red-500 right-2 '>{errors.phoneNumber?.message}</small>}
 
                 <input type={passwordFieldType("current")}  {...register("pass", {
                     required: "Required",
                     minLength: { value: 6, message: "Password must be 6 characters long" },
                     pattern: { value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/, message: 'Password must have uppercase, number and special characters' }
-                })} placeholder="🗝 Password..." defaultValue="Omar11##" />
+                })} placeholder="🗝 Password..." defaultValue="4XNd@qDc5ZHxp6Td" />
                 <div className="flex justify-end">
                     <a className='relative bottom-14 left-32' title="See password" onClick={() => seePass("current")}><FaEye className="text-2xl" /></a>
                 </div>

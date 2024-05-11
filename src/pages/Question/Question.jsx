@@ -22,7 +22,7 @@ const Question = () => {
         }
         // console.log(qusData.answer)
         try {
-            const response = await fetch('https://localhost:7274/api/Question', {
+            const response = await fetch('http://localhost:5000/api/Question', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
