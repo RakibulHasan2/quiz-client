@@ -12,7 +12,7 @@ const TeacherLogin = () => {
     const navigate = useNavigate();
     const handleLoginUser= async(data) => {
         try {
-            const response = await fetch('http://localhost:5000/api/User/login', {
+            const response = await fetch('https://quiz-server-omarfarukees-projects.vercel.app/api/User/login', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

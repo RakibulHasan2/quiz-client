@@ -4,6 +4,7 @@
 import ScrollToTop from 'react-scroll-to-top';
 import { useNavigate, useParams } from 'react-router-dom';
 import './QuizOptionPage.css';
+import loader from '../../images/loader/loader.gif'
 import { useToasts } from 'react-toast-notifications';
 import arrows from '../../images/logo/4902548424a02117b7913c17d2e379ff.gif'
 import { useUserData } from '../../Hooks/Hooks';
@@ -20,7 +21,7 @@ const QuizOptionPage = () => {
     const { data: questions = [] } = useQuery({
         queryKey: ['questions'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/api/Question/getByCatName/${getByCatName}`);
+            const res = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Question/getByCatName/${getByCatName}`);
             const data = await res.json();
             return data;
         }
@@ -55,7 +56,7 @@ const QuizOptionPage = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/api/Result', {
+            const response = await fetch('https://quiz-server-omarfarukees-projects.vercel.app/api/Result', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -83,7 +84,7 @@ const QuizOptionPage = () => {
     const { data: finalResult = [] } = useQuery({
         queryKey: ['finalResult'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/api/Result/getByCatName/${getByCatName}`);
+            const res = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Result/getByCatName/${getByCatName}`);
             const data = await res.json();
             return data;
         }
@@ -104,14 +105,12 @@ const QuizOptionPage = () => {
         }
     });
 
-
-
     const handleViewScore = async () => {
         const scoreData = {
             score: `${correctCount}`
         }
         try {
-            const response = await fetch(`http://localhost:5000/api/Result/${_id}`, {
+            const response = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Result/${_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -174,7 +173,8 @@ const QuizOptionPage = () => {
                     <p>[Note: If you have not answered a question correctly then that option will be <span className='font-bold text-red-600'>red</span>  and if you have answered correctly then it will be <span className='font-bold text-green-600'>green </span> ]</p>
                 </div>}
                 {resultFiltering?.length > 0 ? <></> :
-                    <div>
+                   <div>
+                   {questions?.data ? <></>: <div className="flex justify-center mt-20"><img className="w-24" src={loader} alt="" /></div>}
                         {questions?.data?.map((question, index) => (
                             <div key={question?._id} className='pb-5 mb-10 border-line'>
                                 <div className='flex justify-center w-full'>
@@ -220,12 +220,12 @@ const QuizOptionPage = () => {
                         ))}
                     </div>}
                 <div className='flex justify-center pt-5 pb-10'>
-                    {resultFiltering?.length > 0 ? <></> : <button onClick={handleSubmit} className="btn-12"><span>Submit Answers</span></button>}
+                    {resultFiltering?.length > 0 ? <></> :  questions?.data && <button onClick={handleSubmit} className="btn-12"><span>Submit Answers</span></button>}
                 </div>
-            </div>
+           
             {/*----------------------- questions ans area-------------------------------- */}
             {resultFiltering?.length > 0 &&
-                <div>
+                <div className=''>
                     {questions?.data?.map((question, index) => {
                         const questionResult = resultFiltering && resultFiltering[0]?.selectedOptions;
                         const selectedOption = questionResult && questionResult[question._id];
@@ -274,12 +274,8 @@ const QuizOptionPage = () => {
                         );
                     })}
                 </div>
-
-
-
-
             }
-
+ </div>
 
         </div>
 

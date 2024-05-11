@@ -15,7 +15,7 @@ const Quizes = () => {
     const { data: allCategory = [] } = useQuery({
         queryKey: ['allCategory'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/api/Question/Fetch`);
+            const res = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Question/Fetch`);
             const data = await res.json();
             return data;
         }

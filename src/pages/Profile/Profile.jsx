@@ -10,7 +10,7 @@ const userData = useUserData()
     const { data: allProfile = [] } = useQuery({
         queryKey: ['allProfile'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/api/User/Fetch`);
+            const res = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/User/Fetch`);
             const data = await res.json();
             return data;
         }

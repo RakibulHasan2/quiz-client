@@ -22,7 +22,7 @@ const Question = () => {
         }
         // console.log(qusData.answer)
         try {
-            const response = await fetch('http://localhost:5000/api/Question', {
+            const response = await fetch('https://quiz-server-omarfarukees-projects.vercel.app/api/Question', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
