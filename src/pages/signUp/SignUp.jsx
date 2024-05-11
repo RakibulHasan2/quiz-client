@@ -32,7 +32,7 @@ const SignUp = () => {
         }
         // console.log(userData)
         try {
-            const response = await fetch('https://localhost:7274/api/User', {
+            const response = await fetch('https://quiz-server-omarfarukees-projects.vercel.app/api/User', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,16 +41,16 @@ const SignUp = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData)
-            if (responseData) {
-                console.log('User created successfully');
-                addToast('User created successfully', { appearance: 'success' })
-                sessionStorage.setItem('userData', JSON.stringify(userData));
+            console.log(responseData.user)
+            if (responseData.message === "User created successfully") {
+                
+                addToast('User Sign successfully', { appearance: 'success' })
+                sessionStorage.setItem('userData', JSON.stringify(responseData));
                 navigate('/')
                 reset();
             } else {
-                addToast('User not created', { appearance: 'error' })
-                console.log('Failed to create user');
+                addToast(`${responseData.error}`, { appearance: 'error' })
+
             }
         } catch (error) {
             console.error('Error creating', error);

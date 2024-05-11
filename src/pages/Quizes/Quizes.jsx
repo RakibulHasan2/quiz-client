@@ -15,12 +15,12 @@ const Quizes = () => {
     const { data: allCategory = [] } = useQuery({
         queryKey: ['allCategory'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7274/api/Question/Fetch`);
+            const res = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Question/Fetch`);
             const data = await res.json();
             return data;
         }
     });
-    const uniqueCategoryNames = new Set(allCategory?.map(category => category?.questionCategory));
+    const uniqueCategoryNames = new Set(allCategory?.data?.map(category => category?.questionCategory));
     console.log(allCategory)
     return (
         <div className="pt-24 quiz-container">

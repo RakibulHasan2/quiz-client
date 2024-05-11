@@ -86,7 +86,7 @@ const Navbar = () => {
               </span>
             </NavLink>
           </div>
-          {userData?.role === "student" && 
+          {userData?.user?.role === "student" && 
           <div className="relative h-10 overflow-hidden text-lg font-bold leading-6 text-black uppercase cursor-pointer group">
             <NavLink className={({ isActive }) =>
               isActive
@@ -107,7 +107,7 @@ const Navbar = () => {
               </span>
             </NavLink>
           </div>}
-          {userData?.role === "teacher" && 
+          {userData?.user?.role === "teacher" && 
           <div className="relative h-10 overflow-hidden text-lg font-bold leading-6 text-black uppercase cursor-pointer group">
             <NavLink className={({ isActive }) =>
               isActive
@@ -152,8 +152,8 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-2" >
           <div>
-            {userData?.role === "student" && <NavLink to='/myProfile'><img className="w-12 rounded-full bg-lime-200" src={student} alt="" /></NavLink>}
-            {userData?.role === "teacher" && <NavLink to='/myProfile'><img className="w-12 rounded-full bg-lime-200" src={teacher} alt="" /></NavLink>}
+            {userData?.user?.role === "student" && <NavLink to='/myProfile'><img className="w-12 rounded-full bg-lime-200" src={student} alt="" /></NavLink>}
+            {userData?.user?.role === "teacher" && <NavLink to='/myProfile'><img className="w-12 rounded-full bg-lime-200" src={teacher} alt="" /></NavLink>}
           </div>
           <div className="font-bold transition hover:text-lime-800">
             {!userData ? <NavLink to="/signUp">LOG-IN</NavLink>
