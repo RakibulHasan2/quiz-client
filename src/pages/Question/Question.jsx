@@ -1,4 +1,3 @@
-
 import { useForm } from 'react-hook-form';
 import './Question.css'
 import { useToasts } from 'react-toast-notifications';
@@ -23,7 +22,7 @@ const Question = () => {
         }
         // console.log(qusData.answer)
         try {
-            const response = await fetch('https://localhost:7118/api/Question', {
+            const response = await fetch('https://quiz-server-omarfarukees-projects.vercel.app/api/Question', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

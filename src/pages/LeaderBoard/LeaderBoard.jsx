@@ -16,38 +16,39 @@ const LeaderBoard = () => {
     const { data: allResult = [] } = useQuery({
         queryKey: ['allProfile'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7118/api/Result/Fetch`);
+            const res = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Result/Fetch`);
             const data = await res.json();
             return data;
         }
     });
 
-    const computerNetworks = allResult.filter(computer => computer?.categoryName === 'Computer networks');
-    computerNetworks.sort((a, b) => b.score - a.score);
-    const categoryName1 = computerNetworks[0]?.categoryName
+
+    const computerNetworks = allResult?.data?.filter(computer => computer?.categoryName === 'Computer networks');
+    computerNetworks?.sort((a, b) => b.score - a.score);
+    const categoryName1 = computerNetworks && computerNetworks[0]?.categoryName
 
 
-    const visualProgamming = allResult.filter(visual => visual?.categoryName === 'Visual Progamming');
-    visualProgamming.sort((a, b) => b.score - a.score);
-    const categoryName2 = visualProgamming[0]?.categoryName
+    const visualProgamming = allResult?.data?.filter(visual => visual?.categoryName === 'Visual Progamming');
+    visualProgamming?.sort((a, b) => b.score - a.score);
+    const categoryName2 = visualProgamming && visualProgamming[0]?.categoryName
 
-    const java = allResult.filter(jav => jav?.categoryName === 'Java');
-    java.sort((a, b) => b.score - a.score);
-    const categoryName3 = java[0]?.categoryName
+    const java = allResult?.data?.filter(jav => jav?.categoryName === 'Java');
+    java?.sort((a, b) => b.score - a.score);
+    const categoryName3 = java && java[0]?.categoryName
 
 
-    const operatingSystems = allResult.filter(ops => ops?.categoryName === 'Operating Systems');
-    operatingSystems.sort((a, b) => b.score - a.score);
-    const categoryName4 = operatingSystems[0]?.categoryName
+    const operatingSystems = allResult?.data?.filter(ops => ops?.categoryName === 'Operating Systems');
+    operatingSystems?.sort((a, b) => b.score - a.score);
+    const categoryName4 = operatingSystems &&  operatingSystems[0]?.categoryName
 
-    const dataStructur = allResult.filter(data => data?.categoryName === 'Data structure & algorithms');
-    dataStructur.sort((a, b) => b.score - a.score);
-    const categoryName5 = dataStructur[0]?.categoryName
-    console.log(dataStructur.length)
+    const dataStructur = allResult?.data?.filter(data => data?.categoryName === 'Data structure & algorithms');
+    dataStructur?.sort((a, b) => b.score - a.score);
+    const categoryName5 = dataStructur && dataStructur[0]?.categoryName
 
-    const machineLearning = allResult.filter(ml => ml?.categoryName === 'Machine learning');
-    machineLearning.sort((a, b) => b.score - a.score);
-    const categoryName6 = machineLearning[0]?.categoryName
+
+    const machineLearning = allResult?.data?.filter(ml => ml?.categoryName === 'Machine learning');
+    machineLearning?.sort((a, b) => b.score - a.score);
+    const categoryName6 = machineLearning && machineLearning[0]?.categoryName
 
 
 
@@ -68,7 +69,7 @@ const LeaderBoard = () => {
                 </div>
             </div>
             <div className='flex justify-center animate__animated animate__backInUp'>
-                {computerNetworks?.length > 0 &&
+                {computerNetworks && computerNetworks?.length > 0 &&
                     <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
                         <div className='flex justify-center mb-5 text-3xl italic font-bold'>
                             "{categoryName1}" Leader board
@@ -77,7 +78,7 @@ const LeaderBoard = () => {
                             <div key={index} className="flex justify-between p-4 mt-2 italic font-bold shadow-2xl bg-lime-100 rounded-xl score-entry">
                                 <p>Rank: {index + 1}</p>
                                 <p>Category: {computer?.categoryName}</p>
-                                <p> {userData?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
+                                <p> {userData?.user?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
                                 <p>Score: {computer?.score}</p>
                             </div>
                         ))}
@@ -85,7 +86,7 @@ const LeaderBoard = () => {
                 }
             </div>
             <div className='flex justify-center animate__animated animate__backInUp'>
-                {visualProgamming?.length > 0 &&
+                {visualProgamming && visualProgamming?.length > 0 &&
                     <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
                         <div className='flex justify-center mb-5 text-3xl italic font-bold'>
                             "{categoryName2}" Leader board
@@ -94,7 +95,7 @@ const LeaderBoard = () => {
                             <div key={index} className="flex justify-between p-4 mt-2 italic font-bold shadow-2xl bg-lime-100 rounded-xl score-entry">
                                 <p>Rank: {index + 1}</p>
                                 <p>Category: {computer?.categoryName}</p>
-                                <p> {userData?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
+                                <p> {userData?.user?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
                                 <p>Score: {computer?.score}</p>
                             </div>
                         ))}
@@ -102,7 +103,7 @@ const LeaderBoard = () => {
                 }
             </div>
             <div className='flex justify-center animate__animated animate__backInUp'>
-                {java.length > 0 &&
+                { java && java.length > 0 &&
                     <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
                         <div className='flex justify-center mb-5 text-3xl italic font-bold'>
                             "{categoryName3}" Leader board
@@ -111,7 +112,7 @@ const LeaderBoard = () => {
                             <div key={index} className="flex justify-between p-4 mt-2 italic font-bold shadow-2xl bg-lime-100 rounded-xl score-entry">
                                 <p>Rank: {index + 1}</p>
                                 <p>Category: {computer.categoryName}</p>
-                                <p> {userData?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
+                                <p> {userData?.user?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
                                 <p>Score: {computer.score}</p>
                             </div>
                         ))}
@@ -119,7 +120,7 @@ const LeaderBoard = () => {
                 }
             </div>
             <div className='flex justify-center animate__animated animate__backInUp'>
-                {operatingSystems.length > 0 &&
+                {operatingSystems && operatingSystems.length > 0 &&
                     <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
                         <div className='flex justify-center mb-5 text-3xl italic font-bold'>
                             "{categoryName4}" Leader board
@@ -128,7 +129,7 @@ const LeaderBoard = () => {
                             <div key={index} className="flex justify-between p-4 mt-2 italic font-bold shadow-2xl bg-lime-100 rounded-xl score-entry">
                                 <p>Rank: {index + 1}</p>
                                 <p>Category: {computer.categoryName}</p>
-                                <p> {userData?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
+                                <p> {userData?.user?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
                                 <p>Score: {computer.score}</p>
                             </div>
                         ))}
@@ -136,7 +137,7 @@ const LeaderBoard = () => {
                 }
             </div>
             <div className='flex justify-center animate__animated animate__backInUp'>
-                {dataStructur.length > 0 && <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
+                {dataStructur && dataStructur.length > 0 && <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
                     <div className='flex justify-center mb-5 text-3xl italic font-bold'>
                         "{categoryName5}" Leader board
                     </div>
@@ -144,14 +145,14 @@ const LeaderBoard = () => {
                         <div key={index} className="flex justify-between p-4 mt-2 italic font-bold shadow-2xl bg-lime-100 rounded-xl score-entry">
                             <p>Rank: {index + 1}</p>
                             <p>Category: {computer.categoryName}</p>
-                            <p> {userData?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
+                            <p> {userData?.user?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
                             <p>Score: {computer.score}</p>
                         </div>
                     ))}
                 </div>}
             </div>
             <div className='flex justify-center animate__animated animate__backInUp'>
-                {machineLearning.length > 0 && <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
+                {machineLearning && machineLearning.length > 0 && <div className='w-10/12 p-5 mb-10 shadow-2xl computer-bg bg-lime-300 rounded-2xl'>
                     <div className='flex justify-center mb-5 text-3xl italic font-bold'>
                         "{categoryName6}" Leader board
                     </div>
@@ -159,7 +160,7 @@ const LeaderBoard = () => {
                         <div key={index} className="flex justify-between p-4 mt-2 italic font-bold shadow-2xl bg-lime-100 rounded-xl score-entry">
                             <p>Rank: {index + 1}</p>
                             <p>Category: {computer.categoryName}</p>
-                            <p> {userData?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
+                            <p> {userData?.user?.userName === computer?.userName ? "you" : `${computer?.userName}`}</p>
                             <p>Score: {computer.score}</p>
                         </div>
                     ))}
