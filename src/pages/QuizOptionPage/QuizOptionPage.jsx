@@ -2,80 +2,61 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 import ScrollToTop from 'react-scroll-to-top';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './QuizOptionPage.css';
-import { useUserData } from './../../Hooks/Hooks';
+import loader from '../../images/loader/loader.gif'
 import { useToasts } from 'react-toast-notifications';
-import { useQuery } from 'react-query';
 import arrows from '../../images/logo/4902548424a02117b7913c17d2e379ff.gif'
+import { useUserData } from '../../Hooks/Hooks';
+import { useQuery } from 'react-query';
+import { useState } from 'react';
 const QuizOptionPage = () => {
     const navigate = useNavigate();
     const { addToast } = useToasts();
     const { getByCatName } = useParams();
-    const [questions, setQuestions] = useState([]);
-    const [selectedOptions, setSelectedOptions] = useState({});
-    const [correctAnswers, setCorrectAnswers] = useState({});
     const userData = useUserData()
-    const [questionsWithSingleCorrectOption, setQuestionsWithSingleCorrectOption] = useState(0);
-    
-   if(!userData){
+    if (!userData) {
         navigate('/')
-   }
+    }
+    const { data: questions = [] } = useQuery({
+        queryKey: ['questions'],
+        queryFn: async () => {
+            const res = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Question/getByCatName/${getByCatName}`);
+            const data = await res.json();
+            return data;
+        }
+    });
+    // const checkAllQuestionOption = questions?.data?.length
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`https://localhost:7274/api/Question/getByCatName/${getByCatName}`);
-                const data = await response.json();
-                setQuestions(data);
-                const initialSelectedOptions = {};
-                const initialCorrectAnswers = {};
-                data.forEach(question => {
-                    initialSelectedOptions[question.questionID.
-                        increment] = null;
-                    initialCorrectAnswers[question.questionID.
-                        increment] = question.answer;
-                });
-                setSelectedOptions(initialSelectedOptions);
-                setCorrectAnswers(initialCorrectAnswers);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
-    }, [getByCatName]);
+    const [selectedOptions, setSelectedOptions] = useState({});
 
-    const handleOptionSelect = (questionId, option) => {
+    const handleOptionSelect = (questionId, selectedOption) => {
         setSelectedOptions(prevOptions => ({
             ...prevOptions,
-            [questionId]: option,
+            [questionId]: selectedOption
         }));
     };
 
+    const isOptionSelected = (questionId, option) => {
+        return selectedOptions[questionId] === option;
+    };
+
     const handleSubmit = async () => {
-        const isAnyOptionNull = Object.values(selectedOptions).some(option => option === null);
-        if (isAnyOptionNull) {
-            addToast('Please answer all questions otherwise you cannot submit answers to questions', { appearance: 'warning' })
+        const unansweredQuestions = questions.data.filter(question => !selectedOptions[question._id]);
+        if (unansweredQuestions.length > 0) {
+            addToast("Please answer all questions otherwise you cannot submit answers to questions", { appearance: 'warning' });
             return;
         }
-        function generateRandom10DigitNumber() {
-            const random10DigitNumber = Math.floor(Math.random() * 1e10);
-            const randomNumberString = random10DigitNumber.toString();
-            return randomNumberString.padStart(10, '0');
-        }
         const optionSelectedData = {
-            _id: generateRandom10DigitNumber(),
             selectedOptions,
             categoryName: getByCatName,
-            userName: userData.userName,
-            userPhoneNumber: userData.phoneNumber,
+            userName: userData?.user?.userName,
+            userPhoneNumber: userData?.user.phoneNumber,
             score: ""
         };
-        console.log(optionSelectedData);
 
         try {
-            const response = await fetch('https://localhost:7274/api/Result', {
+            const response = await fetch('https://quiz-server-omarfarukees-projects.vercel.app/api/Result', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -84,9 +65,9 @@ const QuizOptionPage = () => {
             });
 
             const responseResultData = await response.json();
-            console.log(responseResultData)
+            // console.log(responseResultData.status)
 
-            if (responseResultData) {
+            if (responseResultData?.status === true) {
                 addToast(`your ${getByCatName} Quiz submited successfully`, { appearance: 'success' })
                 window.location.reload();
             }
@@ -100,55 +81,37 @@ const QuizOptionPage = () => {
         }
     };
 
-
     const { data: finalResult = [] } = useQuery({
         queryKey: ['finalResult'],
         queryFn: async () => {
-            const res = await fetch(`https://localhost:7274/api/Result/getByCatName/${getByCatName}`);
+            const res = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Result/getByCatName/${getByCatName}`);
             const data = await res.json();
             return data;
         }
     });
-    const filterFinalResult = finalResult.filter(res => res?.userPhoneNumber === userData?.phoneNumber)
-    console.log(filterFinalResult[0]?.score)
-    const getCorrectAnswer = (questionId) => {
-        const correctAnswer = questions.find(question => question.questionID.increment === questionId)?.answer;
-        return correctAnswer;
-    };
 
-    const phoneNumber = filterFinalResult?.map(result => result?.userPhoneNumber).join(', ')
+    const resultFiltering = finalResult?.data?.filter(result => result?.userPhoneNumber === userData?.user?.phoneNumber)
+    const _id = resultFiltering && resultFiltering[0]?._id
+    const ViewsScore = resultFiltering && resultFiltering[0]?.score
+    console.log(ViewsScore)
+    let correctCount = 0;
 
-    useEffect(() => {
-        let count = 0;
-        questions.forEach(question => {
-            const correctAnswer = getCorrectAnswer(question.questionID.increment);
-            const isCorrect = filterFinalResult.some(result => result.selectedOptions[question.questionID.increment] === correctAnswer);
-            const numCorrectOptions = ['option1', 'option2', 'option3', 'option4'].reduce((acc, optionKey) => {
-                if (question[optionKey] === correctAnswer) {
-                    return acc + 1;
-                }
-                return acc;
-            }, 0);
-            if (isCorrect && numCorrectOptions === 1) {
-                count++;
-            }
-        });
-        setQuestionsWithSingleCorrectOption(count);
-    }, [questions, finalResult]);
+    questions?.data?.map((question) => {
+        const questionResult = resultFiltering && resultFiltering[0]?.selectedOptions;
+        const selectedOption = questionResult && questionResult[question._id];
+        const isCorrect = selectedOption === question.answer;
+        if (isCorrect) {
+            correctCount++;
+        }
+    });
 
     const handleViewScore = async () => {
         const scoreData = {
-            resultID: "",
-            selectedOptions,
-            categoryName: getByCatName,
-            userName: userData.userName,
-            userPhoneNumber: userData.phoneNumber,
-            score: `${questionsWithSingleCorrectOption}`
+            score: `${correctCount}`
         }
-
         try {
-            const response = await fetch(`https://localhost:7274/api/Result/${filterFinalResult[0]?.resultID}`, {
-                method: 'POST',
+            const response = await fetch(`https://quiz-server-omarfarukees-projects.vercel.app/api/Result/${_id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -174,148 +137,149 @@ const QuizOptionPage = () => {
     }
 
 
+
     return (
-        <div>  <ScrollToTop smooth top="500" 
-            component={<img className='bg-lime-200 rounded-xl' src={arrows}/>}/>
-        <div className='pt-20 quiz-option-container'>
-          
-
-            <div className='flex justify-center mb-10 topic-name animate__animated animate__flip'>
-                <h1>{getByCatName}</h1>
-            </div>
-            <div className='flex justify-center mb-10 font-bold text-green-700'>
-                {filterFinalResult?.length > 0 && phoneNumber === userData?.phoneNumber ?
-                    <div> <h1 className='text-2xl italic animate__animated animate__bounceInRight'>You have taken the '{getByCatName}' Quiz</h1>
-                       {filterFinalResult[0]?.score === "" ? <div className='flex justify-center mt-5'>
-                            <button onClick={handleViewScore} className='score-btn'>view score<span></span></button>
-                        </div> : <></>}
-                    </div> : <></>}
-            </div>
-            {filterFinalResult?.length > 0 && phoneNumber === userData?.phoneNumber &&
-                <div className='flex justify-center mb-5'>
-                   {filterFinalResult[0]?.score != "" ? 
-                   <div className='p-5 text-2xl bg-transparent rounded-md shadow-2xl backdrop-blur-2xl animate__animated animate__bounceIn'>
-                         <p>Your Score: {questionsWithSingleCorrectOption}/{questions.length}</p>
-                    </div>:<></>}  
-                </div>}
-                {filterFinalResult?.length > 0 && phoneNumber === userData?.phoneNumber &&
-
-                <div className='flex justify-center mt-5 mb-5 italic animate__animated animate__bounceInLeft'>
-                    <p>[Note: If you have not answered a question correctly then the correct answer option of that question will show <span className='font-bold text-green-600'>Green</span>  color ]</p>
+        <div className=''>
+            <ScrollToTop smooth top="500"
+                component={<img className='bg-lime-200 rounded-xl' src={arrows} />} />
+            <div className='pt-20 border quiz-option-container'>
+                <div className='flex justify-center mb-10 topic-name animate__animated animate__flip'>
+                    <h1>{getByCatName}</h1>
                 </div>
 
-                }
-            {filterFinalResult?.length > 0 && phoneNumber === userData?.phoneNumber ?
-                <></> : <div><div>
-                    {questions?.map((question, index) => (
-                        <div key={question.questionID.
-                            increment} className='pb-5 mb-10 border-line'>
-                            <div className='flex justify-center w-full'>
-                                <div className='w-1/2 p-4 bg-transparent shadow-2xl h-44 qus-border backdrop-blur-xl animate__animated animate__backInUp'>
-                                    <h2 className='text-lg italic'>Qus {index + 1} - <span className='font-bold'>{question.question}</span></h2>
-                                    <p className='hidden font-bold'>Correct Answer: {correctAnswers[question.questionID.increment]}</p>
-                                </div>
-                            </div>
-                            <div className='flex justify-center mt-5'>
-                                <div className='w-1/2'>
-                                    <div className='flex justify-evenly'>
-                                        <button
-                                            className={`p-4  shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option1 ? 'selected-option bg-green-500 text-black font-bold' : ''}`}
-                                            onClick={() => handleOptionSelect(question.questionID.
-                                                increment, question.option1)}
-                                        >
-                                            A- {question.option1}
-                                        </button>
-                                        <button
-                                            className={`p-4  shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option2 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
-                                            onClick={() => handleOptionSelect(question.questionID.
-                                                increment, question.option2)}
-                                        >
-                                            B- {question.option2}
-                                        </button>
-                                    </div>
-                                    <div className='flex mt-5 justify-evenly'>
-                                        <button
-                                            className={`p-4  shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option3 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
-                                            onClick={() => handleOptionSelect(question.questionID.
-                                                increment, question.option3)}
-                                        >
-                                            C- {question.option3}
-                                        </button>
-                                        <button
-                                            className={`p-4  shadow-2xl w-60 option backdrop-blur-xl ${selectedOptions[question.questionID.increment] === question.option4 ? 'selected-option bg-green-500 text-black  font-bold' : ''}`}
-                                            onClick={() => handleOptionSelect(question.questionID.
-                                                increment, question.option4)}
-                                        >
-                                            D- {question.option4}
-                                        </button>
-                                    </div>
+                <div className='flex justify-center mb-10 font-bold text-green-700'>
 
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                    <div className='flex justify-center pb-10 mt-5'>
-                        {/* <button className='' >Submit Answers</button> */}
-                        {filterFinalResult?.length > 0 && phoneNumber === userData?.phoneNumber ? (
-                            <button className="btn-12" disabled><span>Submit Answers</span></button>
-                        ) : (
-                            <button onClick={handleSubmit} className="btn-12"><span>Submit Answers</span></button>
-                        )}
+                    <div> {resultFiltering?.length > 0 ? <h1 className='text-2xl italic animate__animated animate__bounceInRight'>You have taken the '{getByCatName}' Quiz</h1> : <></>}
 
+                        {resultFiltering?.length > 0 &&
+
+                            <> {ViewsScore !== "" ? <></> : <div className='flex justify-center mt-5'>
+                                <button onClick={handleViewScore} className='score-btn'>view score<span></span></button>
+                            </div>}</>
+
+                        }
 
                     </div>
+                </div>
+
+                {resultFiltering?.length > 0 && <div className='flex justify-center mb-5'>
+
+                    {ViewsScore === "" ? <></> : <div className='p-5 text-2xl bg-transparent rounded-md shadow-2xl backdrop-blur-2xl animate__animated animate__bounceIn'>
+                        <p>Your Score: {ViewsScore}/{questions?.data?.length}</p>
+                    </div>}
                 </div>}
 
-
-            {/* --------------------------score field------------------------------ */}
-            {filterFinalResult?.length > 0 && phoneNumber === userData?.phoneNumber ? <div>
-                <div>
-                    {questions?.map((question, index) => (
-                        <div key={question.questionID.increment} className='pb-5 mb-10 border-line'>
-                            <div className='flex justify-center w-full'>
-                                <div className='w-1/2 p-4 bg-transparent shadow-2xl h-44 qus-border backdrop-blur-xl animate__animated animate__backInUp'>
-                                    <h2 className='text-lg italic'>Qus {index + 1} - <span className='font-bold'>{question.question}</span></h2>
-                                    <p className='text-lg italic font-bold text-green-700'>Correct Answer: {getCorrectAnswer(question.questionID.increment)}</p>
+                {resultFiltering?.length > 0 && <div className='flex justify-center mt-5 mb-5 italic animate__animated animate__bounceInLeft'>
+                    <p>[Note: If you have not answered a question correctly then that option will be <span className='font-bold text-red-600'>red</span>  and if you have answered correctly then it will be <span className='font-bold text-green-600'>green </span> ]</p>
+                </div>}
+                {resultFiltering?.length > 0 ? <></> :
+                   <div>
+                   {questions?.data ? <></>: <div className="flex justify-center mt-20"><img className="w-24" src={loader} alt="" /></div>}
+                        {questions?.data?.map((question, index) => (
+                            <div key={question?._id} className='pb-5 mb-10 border-line'>
+                                <div className='flex justify-center w-full'>
+                                    <div className='w-1/2 p-4 bg-transparent shadow-2xl h-44 qus-border backdrop-blur-xl animate__animated animate__backInUp'>
+                                        <h2 className='text-lg italic'>Qus {index + 1} - <span className='font-bold'>{question.question}</span></h2>
+                                        <p className='hidden mt-2 italic font-bold'>Correct Answer: {question?.answer}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='flex justify-center mt-5'>
-                                <div className='w-1/2'>
-                                    <div className='flex justify-evenly'>
-                                        {['option1', 'option2', 'option3', 'option4'].map((optionKey) => {
-                                            const correctAnswer = getCorrectAnswer(question.questionID.increment);
-                                            const option = question[optionKey];
-                                            const isCorrect = filterFinalResult.some(result => result.selectedOptions[question.questionID.increment] === option);
-                                            console.log("is correct",isCorrect);
-                                            let optionStyle = '';
-                                            if (isCorrect) {
-                                                optionStyle = 'bg-blue-400';
-                                            }
-                                            else if (option === correctAnswer) {
-                                                optionStyle = 'bg-green-400';
-                                            }
-                                            return (
-                                                <p
-                                                    key={optionKey}
-                                                    className={`ml-2 animate__animated animate__bounceInUp p-4  shadow-2xl w-60 option backdrop-blur-xl ${optionStyle}`}
-                                                >
-                                                    {option}
-                                                </p>
-                                            );
-                                        })}
+                                <div className='flex justify-center mt-5'>
+                                    <div className='w-1/2'>
+                                        <div className='flex justify-evenly'>
+                                            <button
+                                                className={`p-4 shadow-2xl w-60 option backdrop-blur-xl ${isOptionSelected(question._id, question.option1) ? 'bg-green-500' : ''}`}
+                                                onClick={() => handleOptionSelect(question._id, question.option1)}
+                                            >
+                                                A- {question.option1}
+                                            </button>
+                                            <button
+                                                className={`p-4 shadow-2xl w-60 option backdrop-blur-xl ${isOptionSelected(question._id, question.option2) ? 'bg-green-500' : ''}`}
+                                                onClick={() => handleOptionSelect(question._id, question.option2)}
+                                            >
+                                                B- {question.option2}
+                                            </button>
+                                        </div>
+                                        <div className='flex mt-5 justify-evenly'>
+                                            <button
+                                                className={`p-4 shadow-2xl w-60 option backdrop-blur-xl ${isOptionSelected(question._id, question.option3) ? 'bg-green-500' : ''}`}
+                                                onClick={() => handleOptionSelect(question._id, question.option3)}
+                                            >
+                                                C- {question.option3}
+                                            </button>
+                                            <button
+                                                className={`p-4 shadow-2xl w-60 option backdrop-blur-xl ${isOptionSelected(question._id, question.option4) ? 'bg-green-500' : ''}`}
+                                                onClick={() => handleOptionSelect(question._id, question.option4)}
+                                            >
+                                                D- {question.option4}
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-
+                        ))}
+                    </div>}
+                <div className='flex justify-center pt-5 pb-10'>
+                    {resultFiltering?.length > 0 ? <></> :  questions?.data && <button onClick={handleSubmit} className="btn-12"><span>Submit Answers</span></button>}
                 </div>
-            </div> : <></>
+           
+            {/*----------------------- questions ans area-------------------------------- */}
+            {resultFiltering?.length > 0 &&
+                <div className=''>
+                    {questions?.data?.map((question, index) => {
+                        const questionResult = resultFiltering && resultFiltering[0]?.selectedOptions;
+                        const selectedOption = questionResult && questionResult[question._id];
+                        const isCorrect = selectedOption === question.answer;
+                        return (
+                            <div key={question?._id} className='pb-5 mb-10 border-line'>
+                                <div className='flex justify-center w-full'>
+                                    <div className='w-1/2 p-4 bg-transparent shadow-2xl h-44 qus-border backdrop-blur-xl animate__animated animate__backInUp'>
+                                        <h2 className='text-lg italic'>Qus {index + 1} - <span className='font-bold'>{question.question}</span></h2>
+                                        <p className='mt-2 italic font-bold text-green-600 '>Correct Answer: {question?.answer}</p>
+                                    </div>
+                                </div>
+                                <div className='flex justify-center mt-5'>
+                                    <div className='w-1/2'>
+                                        <div className='flex justify-evenly'>
+                                            <button
+                                                disabled
+                                                className={`p-4 shadow-2xl w-60 option backdrop-blur-xl ${isCorrect && selectedOption === question.option1 ? 'bg-green-500' : selectedOption === question.option1 ? 'bg-red-500' : ''}`}
+                                            >
+                                                A- {question.option1}
+                                            </button>
+                                            <button
+                                                disabled
+                                                className={`p-4 shadow-2xl w-60 option backdrop-blur-x ${isCorrect && selectedOption === question.option2 ? 'bg-green-500' : selectedOption === question.option2 ? 'bg-red-500' : ''}`}
+                                            >
+                                                B- {question.option2}
+                                            </button>
+                                        </div>
+                                        <div className='flex mt-5 justify-evenly'>
+                                            <button
+                                                disabled
+                                                className={`p-4 shadow-2xl w-60 option backdrop-blur-xl ${isCorrect && selectedOption === question.option3 ? 'bg-green-500' : selectedOption === question.option3 ? 'bg-red-500' : ''}`}
+                                            >
+                                                C- {question.option3}
+                                            </button>
+                                            <button
+                                                disabled
+                                                className={`p-4 shadow-2xl w-60 option backdrop-blur-xl ${isCorrect && selectedOption === question.option4 ? 'bg-green-500' : selectedOption === question.option4 ? 'bg-red-500' : ''}`}
+                                            >
+                                                D- {question.option4}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
             }
+ </div>
+
         </div>
-    </div>
-    );     
+
+    );
 };
 
 export default QuizOptionPage;
