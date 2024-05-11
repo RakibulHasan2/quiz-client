@@ -41,16 +41,16 @@ const SignUp = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData.result)
+            console.log(responseData.user)
             if (responseData.message === "User created successfully") {
-                console.log('User created successfully');
-                addToast('User created successfully', { appearance: 'success' })
-                sessionStorage.setItem('userData', JSON.stringify(userData));
+                
+                addToast('User Sign successfully', { appearance: 'success' })
+                sessionStorage.setItem('userData', JSON.stringify(responseData));
                 navigate('/')
                 reset();
             } else {
                 addToast(`${responseData.error}`, { appearance: 'error' })
-                // console.log(`${responseData.error}`);
+
             }
         } catch (error) {
             console.error('Error creating', error);
